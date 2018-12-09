@@ -1,0 +1,9 @@
+<ze-apps>
+    <module>
+        <module_id>com_zeapps_crm_stats</module_id>
+        <name>Statistiques CRM</name>
+        <version>1.0.0</version>
+        <active>1</active>
+        <dependencies></dependencies>
+    </module>
+</ze-apps>

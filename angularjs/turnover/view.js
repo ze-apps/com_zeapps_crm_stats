@@ -45,7 +45,7 @@ app.controller("ComQuiltmaniaStatsTurnoverCtrl", ["$scope", "$route", "$routePar
             context = context || "";
 
 
-            /*
+
             var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
 
             zhttp.quiltmania_stats.turnover.get(year, context).then(function (response) {
@@ -60,12 +60,12 @@ app.controller("ComQuiltmaniaStatsTurnoverCtrl", ["$scope", "$route", "$routePar
                     $scope.labels = response.data.labels;
                     $scope.data = response.data.total;
                 }
-            });*/
+            });
 
 
 
             // TODO : données de bouchage
-            var year = 2017;
+            /*var year = 2017;
             $scope.series = [
                 "Chiffre d'affaires " + year,
                 "Chiffre d'affaires " + (year - 1)
@@ -75,7 +75,7 @@ app.controller("ComQuiltmaniaStatsTurnoverCtrl", ["$scope", "$route", "$routePar
                 "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
             };
             $scope.labels = data.labels;
-            $scope.data = data.total;
+            $scope.data = data.total;*/
             // FIN TODO : données de bouchage
         }
 

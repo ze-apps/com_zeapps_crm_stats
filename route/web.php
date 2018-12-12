@@ -6,6 +6,7 @@ use Zeapps\Core\Routeur ;
 Routeur::get("/com_zeapps_crm_stats/turnover/", 'App\\com_zeapps_crm_stats\\Controllers\\Turnover@index');
 Routeur::get("/com_zeapps_crm_stats/turnover/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Turnover@chart');
 Routeur::get("/com_zeapps_crm_stats/turnover/history", 'App\\com_zeapps_crm_stats\\Controllers\\Turnover@history');
+Routeur::get("/com_zeapps_crm_stats/turnover/get/{year}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Turnover@get');
 
 Routeur::get("/com_zeapps_crm_stats/market/", 'App\\com_zeapps_crm_stats\\Controllers\\Market@index');
 Routeur::get("/com_zeapps_crm_stats/market/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Market@chart');

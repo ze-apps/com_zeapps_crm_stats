@@ -48,7 +48,7 @@ app.config(["$provide",
 
             // TURNOVER
             function get_turnover(year, context) {
-                return zeHttp.get("/com_quiltmania_stats/turnover/get/" + year + "/" + context);
+                return zeHttp.get("/com_zeapps_crm_stats/turnover/get/" + year + "/" + context);
             }
 
             // MARKET

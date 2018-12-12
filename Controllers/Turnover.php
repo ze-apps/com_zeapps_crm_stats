@@ -2,33 +2,44 @@
 
 namespace App\com_zeapps_crm_stats\Controllers;
 
+use App\com_zeapps_crm\Models\Invoice\Invoices;
 use Zeapps\Core\Controller;
 use Zeapps\Core\Request;
 use Zeapps\Core\Session;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+use App\com_zeapps_crm\Models\Invoice;
+
 class Turnover extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = array();
         return view("turnover/view", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
     }
 
-    public function chart(){
+    public function chart()
+    {
         $data = array();
         return view("turnover/chart", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
     }
 
-    public function history(){
+    public function history()
+    {
         $data = array();
         return view("turnover/history", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
     }
 
-    public function get($year = false, $context = false){
-        $this->load->model("Com_quiltmania_distributeur_ventes", "distributeur_ventes");
-        $this->load->model("Zeapps_invoices", "invoices", "com_zeapps_crm");
-        $this->load->model("Zeapps_crm_origins", "crm_origins", "com_zeapps_crm");
+    public function get(Request $request)
+    {
+        $year = $request->input('year', 0);
+        $context = $request->input('context', 0);
 
-        if(!$year) $year = intval(date('Y'));
+
+        if (!$year) {
+            $year = intval(date('Y'));
+        }
         $labels = [];
 
         $total = [
@@ -36,37 +47,51 @@ class Turnover extends Controller
             []
         ];
 
-        for($month = 1; $month <= 12; $month++){
+        for ($month = 1; $month <= 12; $month++) {
             $k = $month - 1;
 
-            $dateObj   = DateTime::createFromFormat('!m', $month);
+            $dateObj = \DateTime::createFromFormat('!m', $month);
             $labels[] = $dateObj->format('M'); // March
 
             $total[0][$k] = 0;
             $total[1][$k] = 0;
 
-            if($lines = $this->distributeur_ventes->getByMonth($year - 1, $month)){
-                foreach($lines as $line){
-                    $total[1][$k] += floatval($line->ca);
-                }
+
+
+
+            $invoice = Invoices::select(Capsule::raw('SUM(total_ht) as total_ht'), Capsule::raw('YEAR(date_creation) as annee'))
+                ->whereYear("date_creation", $year)
+                ->whereMonth("date_creation", $month)
+                ->where("finalized", 1)
+                ->groupBy("annee")
+                ->first();
+
+            if ($invoice) {
+                $total[0][$k] = $invoice->total_ht;
             }
 
-            if($lines = $this->distributeur_ventes->getByMonth($year, $month)){
-                foreach($lines as $line){
-                    $total[0][$k] += floatval($line->ca);
-                }
-            }
-        }
 
-        if($sums = $this->invoices->turnover($year)){
-            foreach($sums as $sum){
-                if($sum->year == $year){
-                    $total[0][intval($sum->month)] += floatval($sum->total_ht);
-                }
-                elseif($sum->year == ($year - 1)){
-                    $total[1][intval($sum->month)] += floatval($sum->total_ht);
-                }
+
+            $invoice = Invoices::select(Capsule::raw('SUM(total_ht) as total_ht'), Capsule::raw('YEAR(date_creation) as annee'))
+                ->whereYear("date_creation", $year-1)
+                ->whereMonth("date_creation", $month)
+                ->where("finalized", 1)
+                ->groupBy("annee")
+                ->first();
+
+            if ($invoice) {
+                $total[1][$k] = $invoice->total_ht;
             }
+
+
+
+            // TODO : intégrer les ventes des distributeurs
+            // TODO : intégrer les ventes des distributeurs
+            // TODO : intégrer les ventes des distributeurs
+            // TODO : intégrer les ventes des distributeurs
+            // TODO : intégrer les ventes des distributeurs
+            // TODO : intégrer les ventes des distributeurs
+
         }
 
         echo json_encode(array(

@@ -70,14 +70,14 @@ $tabMenu["url"] = "/ng/com_quiltmania_stats/distributeurs" ;
 $tabMenu["order"] = 70 ;
 $menuLeft[] = $tabMenu ;
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_email" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Evolution du nombre d'emails" ;
 $tabMenu["fa-icon"] = "envelope" ;
 $tabMenu["url"] = "/ng/com_quiltmania_stats/emails" ;
 $tabMenu["order"] = 40 ;
-$menuLeft[] = $tabMenu ;
+$menuLeft[] = $tabMenu ;*/
 
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeurs" ;
@@ -145,12 +145,12 @@ $tabMenu["order"] = 70 ;
 $menuHeader[] = $tabMenu ;
 $tabMenu = array () ;
 
-$tabMenu["id"] = "com_quiltmania_stats_email" ;
+/*$tabMenu["id"] = "com_quiltmania_stats_email" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Evolution du nombre d'emails" ;
 $tabMenu["url"] = "/ng/com_quiltmania_stats/emails" ;
 $tabMenu["order"] = 40 ;
-$menuHeader[] = $tabMenu ;
+$menuHeader[] = $tabMenu ;*/
 
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeurs" ;

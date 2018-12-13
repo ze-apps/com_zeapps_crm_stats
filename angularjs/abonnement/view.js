@@ -253,15 +253,6 @@ app.controller("ComQuiltmaniaStatsAbonnementCtrl", ["$scope", "$route", "$routeP
                     "updated_at": "2017-09-22 15:17:33",
                     "deleted_at": null
                 }, {
-                    "id": "2",
-                    "label": "Hors-series Quiltmania FR",
-                    "numero_en_cours": "46",
-                    "numero_en_cours_compta": "45",
-                    "hs": "1",
-                    "created_at": "2017-09-22 15:17:33",
-                    "updated_at": "2017-09-22 15:42:29",
-                    "deleted_at": null
-                }, {
                     "id": "3",
                     "label": "Quiltmania GB",
                     "numero_en_cours": "121",
@@ -271,28 +262,10 @@ app.controller("ComQuiltmaniaStatsAbonnementCtrl", ["$scope", "$route", "$routeP
                     "updated_at": "2017-09-22 15:17:33",
                     "deleted_at": null
                 }, {
-                    "id": "4",
-                    "label": "Hors-series Quiltmania GB",
-                    "numero_en_cours": "46",
-                    "numero_en_cours_compta": "45",
-                    "hs": "1",
-                    "created_at": "2017-09-22 15:17:33",
-                    "updated_at": "2017-09-22 15:42:35",
-                    "deleted_at": null
-                }, {
                     "id": "5",
                     "label": "Simply Vintage FR",
                     "numero_en_cours": "24",
                     "numero_en_cours_compta": "23",
-                    "hs": "0",
-                    "created_at": "2017-09-22 15:17:33",
-                    "updated_at": "2017-09-22 15:17:33",
-                    "deleted_at": null
-                }, {
-                    "id": "6",
-                    "label": "Carnets de Scrap FR",
-                    "numero_en_cours": "30",
-                    "numero_en_cours_compta": "29",
                     "hs": "0",
                     "created_at": "2017-09-22 15:17:33",
                     "updated_at": "2017-09-22 15:17:33",

@@ -33,7 +33,7 @@
                     </td>
                     <td class="text-right">
                         <a class="btn btn-info btn-xs" href="/ng/com_quiltmania_abonnement/distributeur/edit/@{{ distributeur.id }}">
-                            <i class="fa fa-fw fa-pencil"></i>
+                            <i class="fas fa-fw fa-edit"></i>
                         </a>
                         <button type="button" class="btn btn-danger btn-xs" ng-click="delete(distributeur)">
                             <i class="fa fa-fw fa-trash"></i>

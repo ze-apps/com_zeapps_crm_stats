@@ -45,7 +45,7 @@
                     <td class="text-right">@{{ distributeur_vente.total - distributeur_vente.sold | number:2 }}</td>
                     <td class="text-right">@{{ distributeur_vente.ca | currency }}</td>
                     <td class="text-right">
-                        <ze-btn fa="pencil" color="info" hint="Vente" direction="left"
+                        <ze-btn fa="edit" color="info" hint="Vente" direction="left"
                                 ze-modalform="edit"
                                 data-edit="distributeur_vente"
                                 data-template="templateFormEdit"

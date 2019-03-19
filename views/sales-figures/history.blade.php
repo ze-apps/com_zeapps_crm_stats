@@ -13,6 +13,7 @@
                 <th>Mois</th>
                 <th class="text-right">@{{series[0]}}</th>
                 <th class="text-right">@{{series[1]}}</th>
+                <th class="text-right">{{ __t("Ecart") }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -21,6 +22,7 @@
                 <td>@{{month}}</td>
                 <td class="text-right">@{{data[0][$index] | currency:'€':2}}</td>
                 <td class="text-right">@{{data[1][$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{(data[0][$index] - data[1][$index]) | currency:'€':2}}</td>
                 <td class="text-right">
                     <i class="fa fa-fw" ng-class="hasImproved(data[0][$index], data[1][$index])"></i>
                 </td>

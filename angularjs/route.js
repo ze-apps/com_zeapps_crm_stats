@@ -8,9 +8,9 @@ app.config(["$routeProvider",
             })
 
             // DETAILS
-            .when("/ng/com_quiltmania_stats/turnover", {
-                templateUrl: "/com_zeapps_crm_stats/turnover/",
-                controller: "ComQuiltmaniaStatsTurnoverCtrl"
+            .when("/ng/com_quiltmania_stats/sales-figures", {
+                templateUrl: "/com_zeapps_crm_stats/sales-figures/",
+                controller: "ComQuiltmaniaStatsSalesFiguresCtrl"
             })
             .when("/ng/com_quiltmania_stats/markets", {
                 templateUrl: "/com_zeapps_crm_stats/market/",

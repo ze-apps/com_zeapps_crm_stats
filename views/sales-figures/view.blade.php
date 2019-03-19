@@ -1,4 +1,3 @@
-<div class="msg-ecran-construction"><div>Ecran en cours de construction</div></div>
 <div id="breadcrumb">Chiffre d'affaires</div>
 <div id="content">
     <div class="row">
@@ -16,5 +15,5 @@
         </li>
     </ul>
 
-    <div ng-include="'/com_zeapps_crm_stats/turnover/' + navigationState"></div>
+    <div ng-include="'/com_zeapps_crm_stats/sales-figures/' + navigationState"></div>
 </div>

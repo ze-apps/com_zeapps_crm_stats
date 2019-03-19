@@ -21,7 +21,7 @@ $tabMenu["id"] = "com_quiltmania_stats_turnover" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Chiffre d'affaires" ;
 $tabMenu["fa-icon"] = "chart-pie" ;
-$tabMenu["url"] = "/ng/com_quiltmania_stats/turnover" ;
+$tabMenu["url"] = "/ng/com_quiltmania_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
 $menuLeft[] = $tabMenu ;
 
@@ -100,7 +100,7 @@ $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_turnover" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Chiffre d'affaires" ;
-$tabMenu["url"] = "/ng/com_quiltmania_stats/turnover" ;
+$tabMenu["url"] = "/ng/com_quiltmania_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
 $menuHeader[] = $tabMenu ;
 

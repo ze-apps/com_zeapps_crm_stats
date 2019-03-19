@@ -47,8 +47,8 @@ app.config(["$provide",
             return zeHttp;
 
             // TURNOVER
-            function get_turnover(year, context) {
-                return zeHttp.get("/com_zeapps_crm_stats/turnover/get/" + year + "/" + context);
+            function get_turnover(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/sales-figures/get", filters);
             }
 
             // MARKET

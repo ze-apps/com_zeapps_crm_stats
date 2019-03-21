@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <h4>
+        <h3>
             @{{category.name}}
-        </h4>
+        </h3>
     </div>
 </div>
 <div ng-show="categories.length > 0">

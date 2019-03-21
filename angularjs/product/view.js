@@ -8,24 +8,40 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
         $scope.filters = {
             main: [
                 {
-                    format: 'select',
-                    field: 'id_market',
-                    type: 'text',
-                    label: 'Marché clé',
-					options: []
-                },
-                {
                     format: 'input',
                     field: 'year',
                     type: 'number',
                     label: 'Année'
+                }
+            ],
+            secondaries: [
+                {
+                    format: 'select',
+                    field: 'id_price_list',
+                    type: 'text',
+                    label: 'Grille de prix',
+                    options: []
                 },
                 {
                     format: 'select',
                     field: 'id_origin',
                     type: 'text',
                     label: 'Canal de vente',
-					options: []
+                    options: []
+                },
+                {
+                    format: 'select',
+                    field: 'delivery_country_id IN',
+                    type: 'text',
+                    label: 'Marché clé',
+                    options: []
+                },
+                {
+                    format: 'select',
+                    field: 'delivery_country_id',
+                    type: 'text',
+                    label: 'Pays',
+                    options: []
                 }
             ]
         };
@@ -62,7 +78,59 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
 		$scope.changeCategory = changeCategory;
 		$scope.chartClick = chartClick;
 
-		getTree();
+
+
+
+
+
+
+        // grille de prix
+        zhttp.crm.price_list.get_all().then(function (response) {
+            if (response.data && response.data != "false") {
+                $scope.filters.secondaries[0].options = response.data ;
+            }
+        });
+
+        // Canal de vente
+        zhttp.crm.crm_origin.get_all().then(function (response) {
+            if (response.data && response.data != "false") {
+                $scope.filters.secondaries[1].options = response.data ;
+            }
+        });
+
+
+
+
+        // marché clé
+        $id_marche_cle = 2 ;
+        $scope.filters.secondaries[$id_marche_cle].options = [];
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:8, label:"France"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:13, label:"Pays-Bas"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:17, label:"UK"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:21, label:"USA"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:'24, 27', label:"Australie / Nouvelle Zélande"});
+
+
+
+        // pays
+        $id_pays_filtre = 3 ;
+        zhttp.contact.countries.all().then(function (response) {
+            $scope.filters.secondaries[$id_pays_filtre].options = [] ;
+            if (response.data && response.data != "false") {
+                var countries = response.data.countries ;
+                angular.forEach(countries, function (value) {
+                    $scope.filters.secondaries[$id_pays_filtre].options.push({id:value["id"], label:value["name"]}) ;
+                });
+            }
+        });
+
+
+
+
+
+
+
+
 
         function getTree() {
             zhttp.crm.category.tree().then(function (response) {
@@ -73,6 +141,7 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                 }
             });
         }
+        getTree();
 
         function changeCategory(branch){
             $scope.category = branch;
@@ -82,17 +151,11 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
 		function loadList(context){
 			context = context || "";
 
-
-			/*var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
+			var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
 
             var formatted_filters = angular.toJson($scope.filter_model);
 			zhttp.quiltmania_stats.product.get($scope.category.id, year, context, formatted_filters).then(function(response){
                 if(response.data && response.data != "false"){
-                    if(context) {
-                        $scope.filters.main[0].options = response.data.key_markets;
-                        $scope.filters.main[2].options = response.data.canaux;
-                    }
-
                     $scope.categories = response.data.categories;
                     $scope.labelCategories = [];
                     $scope.dataCategories = [[],[]];
@@ -113,14 +176,12 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                         $scope.labelProducts[1].push(product.name);
                         $scope.dataProducts[1].push(product.total_ht);
                     });
-
-                    $scope.year = year;
                 }
-			});*/
+			});
 
 
             // TODO : données de bouchage
-            var data = {
+            /*var data = {
                 "category": {"name": "racine", "id": "0", "id_parent": "-2", "open": false},
                 "categories": [{
                     "id": "1",
@@ -352,14 +413,10 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                     "updated_at": "0000-00-00 00:00:00",
                     "deleted_at": null
                 }]
-            };
-            var year = 2017 ;
-            if(context) {
-                $scope.filters.main[0].options = data.key_markets;
-                $scope.filters.main[2].options = data.canaux;
-            }
+            };*/
 
-            $scope.categories = data.categories;
+
+            /*$scope.categories = data.categories;
             $scope.labelCategories = [];
             $scope.dataCategories = [[],[]];
             angular.forEach($scope.categories, function(category){
@@ -378,9 +435,7 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
             angular.forEach($scope.products[1], function(product){
                 $scope.labelProducts[1].push(product.name);
                 $scope.dataProducts[1].push(product.total_ht);
-            });
-
-            $scope.year = year;
+            });*/
             // FIN TODO : données de bouchage
 
 		}

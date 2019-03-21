@@ -36,6 +36,10 @@ Routeur::get("/com_zeapps_crm_stats/distributeurs/history", 'App\\com_zeapps_crm
 Routeur::get("/com_zeapps_crm_stats/overview/", 'App\\com_zeapps_crm_stats\\Controllers\\Overview@index');
 
 
+Routeur::post("/com_quiltmania_stats/product_stats/get/{id_parent}/{year}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@get');
+
+
+
 
 
 

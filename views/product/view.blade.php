@@ -1,4 +1,3 @@
-<div class="msg-ecran-construction"><div>Ecran en cours de construction</div></div>
 <div id="breadcrumb">Ventes de produits</div>
 <div id="content">
     <div class="row">

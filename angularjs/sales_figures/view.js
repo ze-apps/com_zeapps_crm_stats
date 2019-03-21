@@ -11,7 +11,9 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
                     field: 'year',
                     type: 'number',
                     label: 'Année'
-                },
+                }
+            ],
+            secondaries: [
                 {
                     format: 'select',
                     field: 'id_price_list',
@@ -69,14 +71,14 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
         // grille de prix
         zhttp.crm.price_list.get_all().then(function (response) {
             if (response.data && response.data != "false") {
-                $scope.filters.main[1].options = response.data ;
+                $scope.filters.secondaries[0].options = response.data ;
             }
         });
 
         // Canal de vente
         zhttp.crm.crm_origin.get_all().then(function (response) {
             if (response.data && response.data != "false") {
-                $scope.filters.main[2].options = response.data ;
+                $scope.filters.secondaries[1].options = response.data ;
             }
         });
 
@@ -84,23 +86,24 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
 
 
         // marché clé
-        $id_marche_cle = 3 ;
-        $scope.filters.main[$id_marche_cle].options = [];
-        $scope.filters.main[$id_marche_cle].options.push({id:8, label:"France"});
-        $scope.filters.main[$id_marche_cle].options.push({id:13, label:"Pays-Bas"});
-        $scope.filters.main[$id_marche_cle].options.push({id:17, label:"UK"});
-        $scope.filters.main[$id_marche_cle].options.push({id:21, label:"USA"});
-        $scope.filters.main[$id_marche_cle].options.push({id:'24, 27', label:"Australie / Nouvelle Zélande"});
+        $id_marche_cle = 2 ;
+        $scope.filters.secondaries[$id_marche_cle].options = [];
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:8, label:"France"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:13, label:"Pays-Bas"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:17, label:"UK"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:21, label:"USA"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:'24, 27', label:"Australie / Nouvelle Zélande"});
 
 
 
         // pays
+        $id_pays_filtre = 3 ;
         zhttp.contact.countries.all().then(function (response) {
-            $scope.filters.main[4].options = [] ;
+            $scope.filters.secondaries[$id_pays_filtre].options = [] ;
             if (response.data && response.data != "false") {
                 var countries = response.data.countries ;
                 angular.forEach(countries, function (value) {
-                    $scope.filters.main[4].options.push({id:value["id"], label:value["name"]}) ;
+                    $scope.filters.secondaries[$id_pays_filtre].options.push({id:value["id"], label:value["name"]}) ;
                 });
             }
         });

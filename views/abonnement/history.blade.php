@@ -6,9 +6,9 @@
     </div>
 </div>
 
-<div class="row" ng-repeat="abonnement in abonnements">
+<div class="row" ng-repeat="publication in publications" ng-if="data[publication.id]">
     <div class="col-md-12">
-        <label>@{{abonnement.label}}</label>
+        <h3>@{{ publication.label }}</h3>
         <table class="table table-condensed table-responsive table-stripped">
             <thead>
             <tr>
@@ -17,9 +17,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="label in labels[abonnement.id] | orderBy:'-'">
+            <tr ng-repeat="label in labels[publication.id] | orderBy:'-'">
                 <td>@{{ label }}</td>
-                <td class="text-right">@{{ data[abonnement.id][0][labels[abonnement.id].length - 1 - $index] }}</td>
+                <td class="text-right">@{{ data[publication.id][0][labels[publication.id].length - 1 - $index] }}</td>
             </tr>
             </tbody>
         </table>

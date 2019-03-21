@@ -74,6 +74,9 @@ class SalesFigures extends Controller
                 } elseif (strpos($key, " LIKE") !== false) {
                     $key = str_replace(" LIKE", "", $key);
                     $invoice = $invoice->where($key, 'like', '%' . $value . '%');
+                } elseif (strpos(strtolower($key), " in") !== false) {
+                    $tabKey = explode(" ", $key);
+                    $invoice = $invoice->whereIn($tabKey[0], explode(",", $value));
                 } elseif (strpos($key, " ") !== false) {
                     $tabKey = explode(" ", $key);
                     $invoice = $invoice->where($tabKey[0], $tabKey[1], $value);
@@ -100,6 +103,9 @@ class SalesFigures extends Controller
                 } elseif (strpos($key, " LIKE") !== false) {
                     $key = str_replace(" LIKE", "", $key);
                     $invoice = $invoice->where($key, 'like', '%' . $value . '%');
+                } elseif (strpos(strtolower($key), " in") !== false) {
+                    $tabKey = explode(" ", $key);
+                    $invoice = $invoice->whereIn($tabKey[0], explode(",", $value));
                 } elseif (strpos($key, " ") !== false) {
                     $tabKey = explode(" ", $key);
                     $invoice = $invoice->where($tabKey[0], $tabKey[1], $value);

@@ -25,6 +25,20 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
                     type: 'text',
                     label: 'Canal de vente',
                     options: []
+                },
+                {
+                    format: 'select',
+                    field: 'delivery_country_id IN',
+                    type: 'text',
+                    label: 'Marché clé',
+                    options: []
+                },
+                {
+                    format: 'select',
+                    field: 'delivery_country_id',
+                    type: 'text',
+                    label: 'Pays',
+                    options: []
                 }
             ]
         };
@@ -52,16 +66,42 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
 
 
 
-
+        // grille de prix
         zhttp.crm.price_list.get_all().then(function (response) {
             if (response.data && response.data != "false") {
                 $scope.filters.main[1].options = response.data ;
             }
         });
 
+        // Canal de vente
         zhttp.crm.crm_origin.get_all().then(function (response) {
             if (response.data && response.data != "false") {
                 $scope.filters.main[2].options = response.data ;
+            }
+        });
+
+
+
+
+        // marché clé
+        $id_marche_cle = 3 ;
+        $scope.filters.main[$id_marche_cle].options = [];
+        $scope.filters.main[$id_marche_cle].options.push({id:8, label:"France"});
+        $scope.filters.main[$id_marche_cle].options.push({id:13, label:"Pays-Bas"});
+        $scope.filters.main[$id_marche_cle].options.push({id:17, label:"UK"});
+        $scope.filters.main[$id_marche_cle].options.push({id:21, label:"USA"});
+        $scope.filters.main[$id_marche_cle].options.push({id:'24, 27', label:"Australie / Nouvelle Zélande"});
+
+
+
+        // pays
+        zhttp.contact.countries.all().then(function (response) {
+            $scope.filters.main[4].options = [] ;
+            if (response.data && response.data != "false") {
+                var countries = response.data.countries ;
+                angular.forEach(countries, function (value) {
+                    $scope.filters.main[4].options.push({id:value["id"], label:value["name"]}) ;
+                });
             }
         });
 

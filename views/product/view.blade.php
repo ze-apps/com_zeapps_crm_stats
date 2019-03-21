@@ -15,7 +15,10 @@
 
             <ul class="nav nav-tabs">
                 <li ng-class="navigationState === 'chart' ? 'active' : ''">
-                    <a href="#" ng-click="navigationState = 'chart'">Graphique</a>
+                    <a href="#" ng-click="navigationState = 'chart'">Graphique en montant</a>
+                </li>
+                <li ng-class="navigationState === 'chartQty' ? 'active' : ''">
+                    <a href="#" ng-click="navigationState = 'chartQty'">Graphique en quantité</a>
                 </li>
                 <li ng-class="navigationState === 'history' ? 'active' : ''">
                     <a href="#" ng-click="navigationState = 'history'">Tableau</a>

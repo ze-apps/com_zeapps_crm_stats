@@ -23,6 +23,12 @@ class Product_stats extends Controller
         return view("product/chart", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
     }
 
+    public function chartQty()
+    {
+        $data = array();
+        return view("product/chart-qty", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
+    }
+
     public function history()
     {
         $data = array();
@@ -61,24 +67,26 @@ class Product_stats extends Controller
                 $total_ht[0] = 0;
                 $total_ht[1] = 0;
 
+                $qty = [] ;
+                $qty[0] = 0;
+                $qty[1] = 0;
+
+
+
                 if ($sums = ProductCategories::turnover($year, $filters)) {
                     foreach ($sums as $sum) {
                         if ($sum->year == $year) {
                             $total_ht[0] += floatval($sum->total_ht);
+                            $qty[0] += floatval($sum->qty);
                         } elseif ($sum->year == ($year - 1)) {
                             $total_ht[1] += floatval($sum->total_ht);
+                            $qty[1] += floatval($sum->qty);
                         }
                     }
                 }
 
-                if ($total_ht[0] < 0) {
-                    $total_ht[0] = 0;
-                }
-                if ($total_ht[1] < 0) {
-                    $total_ht[1] = 0;
-                }
-
                 $cat->total_ht = $total_ht ;
+                $cat->qty = $qty ;
             }
         } else {
             $categories = [];

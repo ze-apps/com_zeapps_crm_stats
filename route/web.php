@@ -18,6 +18,7 @@ Routeur::get("/com_zeapps_crm_stats/abonnement_stats/history", 'App\\com_zeapps_
 
 Routeur::get("/com_zeapps_crm_stats/product_stats/", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@index');
 Routeur::get("/com_zeapps_crm_stats/product_stats/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@chart');
+Routeur::get("/com_zeapps_crm_stats/product_stats/chartQty", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@chartQty');
 Routeur::get("/com_zeapps_crm_stats/product_stats/history", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@history');
 
 Routeur::get("/com_zeapps_crm_stats/medium/", 'App\\com_zeapps_crm_stats\\Controllers\\Medium@index');

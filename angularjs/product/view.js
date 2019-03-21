@@ -64,7 +64,7 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
 						while (rgx.test(x1)) {
 							x1 = x1.replace(rgx, "$1" + " " + "$2");
 						}
-						return " " + x1 + x2 + " €";
+						return data.labels[tooltipItem.index] + " : " + x1 + x2;
 					}
 				}
 			},
@@ -152,6 +152,7 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
 			context = context || "";
 
 			var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
+            $scope.year = year;
 
             var formatted_filters = angular.toJson($scope.filter_model);
 			zhttp.quiltmania_stats.product.get($scope.category.id, year, context, formatted_filters).then(function(response){
@@ -159,22 +160,32 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                     $scope.categories = response.data.categories;
                     $scope.labelCategories = [];
                     $scope.dataCategories = [[],[]];
+                    $scope.dataCategoriesQty = [[],[]];
                     angular.forEach($scope.categories, function(category){
                         $scope.labelCategories.push(category.name);
+
                         $scope.dataCategories[0].push(category.total_ht[0]);
                         $scope.dataCategories[1].push(category.total_ht[1]);
+
+                        $scope.dataCategoriesQty[0].push(category.qty[0]);
+                        $scope.dataCategoriesQty[1].push(category.qty[1]);
 					});
 
                     $scope.products = response.data.products;
-                    $scope.labelProducts = [[],[]];
-                    $scope.dataProducts = [[],[]];
+                    $scope.labelProducts = [[], []];
+                    $scope.dataProducts = [[], []];
+                    $scope.dataProductsQty = [[], []];
+
                     angular.forEach($scope.products[0], function(product){
                         $scope.labelProducts[0].push(product.name);
                         $scope.dataProducts[0].push(product.total_ht);
+                        $scope.dataProductsQty[0].push(product.qty);
                     });
+
                     angular.forEach($scope.products[1], function(product){
                         $scope.labelProducts[1].push(product.name);
                         $scope.dataProducts[1].push(product.total_ht);
+                        $scope.dataProductsQty[1].push(product.qty);
                     });
                 }
 			});

@@ -8,6 +8,15 @@ Routeur::get("/com_zeapps_crm_stats/sales-figures/chart", 'App\\com_zeapps_crm_s
 Routeur::get("/com_zeapps_crm_stats/sales-figures/history", 'App\\com_zeapps_crm_stats\\Controllers\\SalesFigures@history');
 Routeur::post("/com_zeapps_crm_stats/sales-figures/get", 'App\\com_zeapps_crm_stats\\Controllers\\SalesFigures@get');
 
+
+Routeur::get("/com_zeapps_crm_stats/flowing-horizon", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@index');
+Routeur::get("/com_zeapps_crm_stats/flowing-horizon/chart", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@chart');
+Routeur::get("/com_zeapps_crm_stats/flowing-horizon/history", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@history');
+Routeur::post("/com_zeapps_crm_stats/flowing-horizon/get", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@get');
+
+
+
+
 Routeur::get("/com_zeapps_crm_stats/market/", 'App\\com_zeapps_crm_stats\\Controllers\\Market@index');
 Routeur::get("/com_zeapps_crm_stats/market/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Market@chart');
 Routeur::get("/com_zeapps_crm_stats/market/history", 'App\\com_zeapps_crm_stats\\Controllers\\Market@history');

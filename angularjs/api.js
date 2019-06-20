@@ -7,6 +7,9 @@ app.config(["$provide",
                 turnover: {
                     get: get_turnover
                 },
+                flowing_horizon: {
+                    get: get_flowing_horizon
+                },
                 market: {
                     get: get_market
                 },
@@ -50,6 +53,13 @@ app.config(["$provide",
             function get_turnover(filters) {
                 return zeHttp.post("/com_zeapps_crm_stats/sales-figures/get", filters);
             }
+
+            // TURNOVER
+            function get_flowing_horizon(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/flowing-horizon/get", filters);
+            }
+
+
 
             // MARKET
             function get_market(year, context, filters) {

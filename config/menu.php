@@ -25,13 +25,28 @@ $tabMenu["url"] = "/ng/com_quiltmania_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
 $menuLeft[] = $tabMenu ;
 
+
+
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_flowing_horizon" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Horizon coulant" ;
+$tabMenu["fa-icon"] = "chart-pie" ;
+$tabMenu["url"] = "/ng/com_quiltmania_stats/flowing-horizon" ;
+$tabMenu["order"] = 11 ;
+$menuLeft[] = $tabMenu ;
+
+
+
+
+
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_productstats" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Ventes de produits" ;
 $tabMenu["fa-icon"] = "tags" ;
 $tabMenu["url"] = "/ng/com_quiltmania_stats/products" ;
-$tabMenu["order"] = 11 ;
+$tabMenu["order"] = 12 ;
 $menuLeft[] = $tabMenu ;
 
 /*$tabMenu = array () ;
@@ -106,12 +121,22 @@ $tabMenu["url"] = "/ng/com_quiltmania_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
 $menuHeader[] = $tabMenu ;
 
+
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_flowing_horizon" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Horizon coulant" ;
+$tabMenu["fa-icon"] = "chart-pie" ;
+$tabMenu["url"] = "/ng/com_quiltmania_stats/flowing-horizon" ;
+$tabMenu["order"] = 11 ;
+$menuHeader[] = $tabMenu ;
+
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_productstats" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Ventes de produits" ;
 $tabMenu["url"] = "/ng/com_quiltmania_stats/products" ;
-$tabMenu["order"] = 11 ;
+$tabMenu["order"] = 12 ;
 $menuHeader[] = $tabMenu ;
 
 /*$tabMenu = array () ;

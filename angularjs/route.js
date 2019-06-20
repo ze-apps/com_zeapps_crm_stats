@@ -7,11 +7,16 @@ app.config(["$routeProvider",
                 controller: "ComQuiltmaniaStatsOverviewCtrl"
             })
 
-            // DETAILS
             .when("/ng/com_quiltmania_stats/sales-figures", {
                 templateUrl: "/com_zeapps_crm_stats/sales-figures/",
                 controller: "ComQuiltmaniaStatsSalesFiguresCtrl"
             })
+
+            .when("/ng/com_quiltmania_stats/flowing-horizon", {
+                templateUrl: "/com_zeapps_crm_stats/flowing-horizon",
+                controller: "ComQuiltmaniaStatsFlowingHorizonCtrl"
+            })
+
             .when("/ng/com_quiltmania_stats/markets", {
                 templateUrl: "/com_zeapps_crm_stats/market/",
                 controller: "ComQuiltmaniaStatsMarketCtrl"

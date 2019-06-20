@@ -64,12 +64,18 @@ class FlowingHorizon extends Controller
 
         // calcul la date de de début d'analyse
         $premierJour = new \DateTime("first day of this month");
-        for($month=1;$month<=12;$month++) {
-            if ($month == 1) {
+        $premierJour->sub(new \DateInterval('P1M'));
+        $premierJour->sub(new \DateInterval('P' . ($periodicity*12) . 'M'));
+        $indexCA = -1 ;
+        for($month=12;$month>=1;$month--) {
+            $indexCA++;
+            /*if ($month == 1) {
                 $premierJour->sub(new \DateInterval('P1M'));
             } else {
                 $premierJour->sub(new \DateInterval('P' . $periodicity . 'M'));
-            }
+            }*/
+
+            $premierJour->add(new \DateInterval('P' . $periodicity . 'M'));
 
             $premmierJourPeriode = clone $premierJour;
             $premmierJourPeriode->sub(new \DateInterval('P12M'));
@@ -82,11 +88,10 @@ class FlowingHorizon extends Controller
             //echo $premmierJourPeriode->format('d/m/Y') . " - " . $dernierJour->format('d/m/Y') . "<br>";
 
 
-            $k = $month - 1;
 
             $labels[] = __t($dernierJour->format('M')) . " " . $dernierJour->format('Y');
 
-            $total[0][$k] = 0;
+            $total[0][$indexCA] = 0;
 
 
             $invoice = Invoices::select(Capsule::raw('SUM(total_ht) as total_ht'))
@@ -114,7 +119,7 @@ class FlowingHorizon extends Controller
             $invoice = $invoice->first();
 
             if ($invoice) {
-                $total[0][$k] = $invoice->total_ht;
+                $total[0][$indexCA] = $invoice->total_ht;
             }
 
 

@@ -2,76 +2,76 @@ app.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider
         // OVERVIEW
-            .when("/ng/com_quiltmania_stats/overview", {
+            .when("/ng/com_zeapps_crm_stats/overview", {
                 templateUrl: "/com_zeapps_crm_stats/overview/",
-                controller: "ComQuiltmaniaStatsOverviewCtrl"
+                controller: "ComZeappsStatsOverviewCtrl"
             })
 
-            .when("/ng/com_quiltmania_stats/sales-figures", {
+            .when("/ng/com_zeapps_crm_stats/sales-figures", {
                 templateUrl: "/com_zeapps_crm_stats/sales-figures/",
-                controller: "ComQuiltmaniaStatsSalesFiguresCtrl"
+                controller: "ComZeappsStatsSalesFiguresCtrl"
             })
 
-            .when("/ng/com_quiltmania_stats/flowing-horizon", {
+            .when("/ng/com_zeapps_crm_stats/flowing-horizon", {
                 templateUrl: "/com_zeapps_crm_stats/flowing-horizon",
-                controller: "ComQuiltmaniaStatsFlowingHorizonCtrl"
+                controller: "ComZeappsStatsFlowingHorizonCtrl"
             })
 
-            .when("/ng/com_quiltmania_stats/markets", {
+            .when("/ng/com_zeapps_crm_stats/markets", {
                 templateUrl: "/com_zeapps_crm_stats/market/",
-                controller: "ComQuiltmaniaStatsMarketCtrl"
+                controller: "ComZeappsStatsMarketCtrl"
             })
-            .when("/ng/com_quiltmania_stats/abonnements", {
+            .when("/ng/com_zeapps_crm_stats/abonnements", {
                 templateUrl: "/com_zeapps_crm_stats/abonnement_stats/",
-                controller: "ComQuiltmaniaStatsAbonnementCtrl"
+                controller: "ComZeappsStatsAbonnementCtrl"
             })
-            .when("/ng/com_quiltmania_stats/products", {
+            .when("/ng/com_zeapps_crm_stats/products", {
                 templateUrl: "/com_zeapps_crm_stats/product_stats/",
-                controller: "ComQuiltmaniaStatsProductstatsCtrl"
+                controller: "ComZeappsStatsProductstatsCtrl"
             })
-            .when("/ng/com_quiltmania_stats/medium", {
+            .when("/ng/com_zeapps_crm_stats/medium", {
                 templateUrl: "/com_zeapps_crm_stats/medium/",
-                controller: "ComQuiltmaniaStatsMediumCtrl"
+                controller: "ComZeappsStatsMediumCtrl"
             })
-            .when("/ng/com_quiltmania_stats/emails", {
+            .when("/ng/com_zeapps_crm_stats/emails", {
                 templateUrl: "/com_zeapps_crm_stats/email_stats/",
-                controller: "ComQuiltmaniaStatsEmailCtrl"
+                controller: "ComZeappsStatsEmailCtrl"
             })
-            .when("/ng/com_quiltmania_stats/distributeurs", {
+            .when("/ng/com_zeapps_crm_stats/distributeurs", {
                 templateUrl: "/com_zeapps_crm_stats/distributeurs/",
-                controller: "ComQuiltmaniaStatsDistributeurCtrl"
+                controller: "ComZeappsStatsDistributeurCtrl"
             })
 
             // DISTRIBUTEUR VENTE
-            .when("/ng/com_quiltmania_stats/vente_distributeur", {
+            .when("/ng/com_zeapps_crm_stats/vente_distributeur", {
                 templateUrl: "/com_zeapps_crm_stats/distributeur_ventes/view/",
-                controller: "ComQuiltmaniaStatsDistributeurViewCtrl"
+                controller: "ComZeappsStatsDistributeurViewCtrl"
             })
 
             // CONFIG
-            .when("/ng/com_quiltmania_stats/distributeur", {
+            .when("/ng/com_zeapps_crm_stats/distributeur", {
                 templateUrl: "/com_zeapps_crm_stats/distributeurs/config/",
-                controller: "ComQuiltmaniaStatsDistributeurConfigCtrl"
+                controller: "ComZeappsStatsDistributeurConfigCtrl"
             })
-            .when("/ng/com_quiltmania_stats/distributeur/new/", {
+            .when("/ng/com_zeapps_crm_stats/distributeur/new/", {
                 templateUrl: "/com_zeapps_crm_stats/distributeurs/config_form/",
-                controller: "ComQuiltmaniaStatsDistributeurConfigFormCtrl"
+                controller: "ComZeappsStatsDistributeurConfigFormCtrl"
             })
-            .when("/ng/com_quiltmania_stats/distributeur/edit/:id", {
+            .when("/ng/com_zeapps_crm_stats/distributeur/edit/:id", {
                 templateUrl: "/com_zeapps_crm_stats/distributeurs/config_form/",
-                controller: "ComQuiltmaniaStatsDistributeurConfigFormCtrl"
+                controller: "ComZeappsStatsDistributeurConfigFormCtrl"
             })
-            .when("/ng/com_quiltmania_stats/key_markets/config", {
+            .when("/ng/com_zeapps_crm_stats/key_markets/config", {
                 templateUrl: "/com_zeapps_crm_stats/key_market/config",
-                controller: "ComQuiltmaniaStatsKeyMarketsConfigCtrl"
+                controller: "ComZeappsStatsKeyMarketsConfigCtrl"
             })
-            .when("/ng/com_quiltmania_stats/key_markets/new/", {
+            .when("/ng/com_zeapps_crm_stats/key_markets/new/", {
                 templateUrl: "/com_zeapps_crm_stats/key_market/config_form",
-                controller: "ComQuiltmaniaStatsKeyMarketsConfigFormCtrl"
+                controller: "ComZeappsStatsKeyMarketsConfigFormCtrl"
             })
-            .when("/ng/com_quiltmania_stats/key_markets/edit/:id", {
+            .when("/ng/com_zeapps_crm_stats/key_markets/edit/:id", {
                 templateUrl: "/com_zeapps_crm_stats/key_market/config_form",
-                controller: "ComQuiltmaniaStatsKeyMarketsConfigFormCtrl"
+                controller: "ComZeappsStatsKeyMarketsConfigFormCtrl"
             })
         ;
     }

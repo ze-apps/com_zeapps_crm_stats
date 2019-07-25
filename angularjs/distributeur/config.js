@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsDistributeurConfigCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsDistributeurConfigCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
     function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_ze_apps_config", "com_quiltmania_stats_distributeurs_config");

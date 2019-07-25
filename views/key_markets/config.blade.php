@@ -2,7 +2,7 @@
 <div id="content">
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-xs btn-success" href="/ng/com_quiltmania_stats/key_markets/new">
+            <a class="btn btn-xs btn-success" href="/ng/com_zeapps_crm_stats/key_markets/new">
                 <i class="fa fa-fw fa-plus"></i> marché clé
             </a>
         </div>
@@ -32,7 +32,7 @@
                         @{{ key_market.countries.length }}
                     </td>
                     <td class="text-right">
-                        <a class="btn btn-info btn-xs" href="/ng/com_quiltmania_stats/key_markets/edit/@{{ key_market.id }}">
+                        <a class="btn btn-info btn-xs" href="/ng/com_zeapps_crm_stats/key_markets/edit/@{{ key_market.id }}">
                             <i class="fas fa-fw fa-edit"></i>
                         </a>
                         <button type="button" class="btn btn-danger btn-xs" ng-click="delete(key_market)" ze-confirmation>

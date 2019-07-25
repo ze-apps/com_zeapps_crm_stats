@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsKeyMarketsConfigFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsKeyMarketsConfigFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
 	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_ze_apps_config", "com_quiltmania_stats_key_markets_config");
@@ -67,14 +67,14 @@ app.controller("ComQuiltmaniaStatsKeyMarketsConfigFormCtrl", ["$scope", "$route"
 		}
 
 		function cancel(){
-			$location.url("/ng/com_quiltmania_stats/key_markets/config");
+			$location.url("/ng/com_zeapps_crm_stats/key_markets/config");
     	}
 
 		function success(){
 			var formatted_data = $scope.form;
 			zhttp.quiltmania_stats.key_markets.save(formatted_data).then(function(response){
 				if(response.data && response.data != "false"){
-					$location.url("/ng/com_quiltmania_stats/key_markets/config");
+					$location.url("/ng/com_zeapps_crm_stats/key_markets/config");
 				}
 			});
 		}

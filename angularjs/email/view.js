@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsEmailCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsEmailCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
 	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_zeapps_statistics", "com_quiltmania_stats_email");

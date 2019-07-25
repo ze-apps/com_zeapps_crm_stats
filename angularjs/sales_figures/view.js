@@ -1,17 +1,39 @@
-app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsSalesFiguresCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
 	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_zeapps_statistics", "com_quiltmania_stats_turnover");
+
+        $scope.filter_model = {};
+        $scope.filter_model.type_view = "month" ;
+
+        $scope.showResult = false ;
 
 		$scope.navigationState = "chart";
         $scope.filters = {
             main: [
                 {
                     format: 'input',
-                    field: 'year',
-                    type: 'number',
-                    label: 'Année'
-                }
+                    field: 'date_sales >=',
+                    type: 'date',
+                    label: 'Date de facture : Début'
+                },
+                {
+                    format: 'input',
+                    field: 'date_sales <=',
+                    type: 'date',
+                    label: 'Date de facture : Fin'
+                },
+                {
+                    format: 'select',
+                    field: 'type_view',
+                    type: 'text',
+                    label: 'Type de vue',
+                    options: [
+                        {id:"week", label:"Semaine"},
+                        {id:"month", label:"Mois"},
+                        {id:"year", label:"Année"},
+                    ]
+                },
             ],
             secondaries: [
                 {
@@ -44,7 +66,7 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
                 }
             ]
         };
-        $scope.filter_model = {};
+
 		$scope.options = {
 			legend: {display: true},
 			tooltips: {
@@ -121,23 +143,20 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
         loadList();
 
         function loadList() {
-            var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
-
+            $scope.showResult = false ;
 
             var filtre = {} ;
             angular.forEach($scope.filter_model, function (value, key) {
                 filtre[key] = value ;
             });
 
-
-
             // convet date JS to YYYY-MM-DD
-            /*var arrayFieldDate = ["date_creation >=", "date_creation <=", "date_limit >=", "date_limit <="] ;
+            var arrayFieldDate = ["date_sales >=", "date_sales <="] ;
             for (var i_arrayFieldDate = 0 ; i_arrayFieldDate < arrayFieldDate.length ; i_arrayFieldDate++) {
                 if (filtre[arrayFieldDate[i_arrayFieldDate]] != undefined) {
                     filtre[arrayFieldDate[i_arrayFieldDate]] = filtre[arrayFieldDate[i_arrayFieldDate]].getFullYear() + "-" + (filtre[arrayFieldDate[i_arrayFieldDate]].getMonth() + 1) + "-" + filtre[arrayFieldDate[i_arrayFieldDate]].getDate();
                 }
-            }*/
+            }
 
 
             // convert , to . for numeric
@@ -152,9 +171,10 @@ app.controller("ComQuiltmaniaStatsSalesFiguresCtrl", ["$scope", "$route", "$rout
 
             zhttp.quiltmania_stats.turnover.get(filtre).then(function (response) {
                 if (response.data && response.data != "false") {
+                    $scope.showResult = true ;
+
                     $scope.series = [
-                    	__t("Sales figures") + " " + year,
-						__t("Sales figures") + " " + (year - 1)
+                    	__t("Sales figures") + response.data.infoSerie
 					];
                     $scope.labels = response.data.labels;
                     $scope.data = response.data.total;

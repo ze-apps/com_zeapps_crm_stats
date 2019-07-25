@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsDistributeurConfigFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsDistributeurConfigFormCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
     function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_ze_apps_config", "com_quiltmania_stats_distributeurs_config");
@@ -47,14 +47,14 @@ app.controller("ComQuiltmaniaStatsDistributeurConfigFormCtrl", ["$scope", "$rout
         }
 
         function cancel() {
-            $location.url("/ng/com_quiltmania_stats/distributeur");
+            $location.url("/ng/com_zeapps_crm_stats/distributeur");
         }
 
         function success() {
             var formatted_data = $scope.form;
             zhttp.quiltmania_stats.distributeur.save(formatted_data).then(function (response) {
                 if (response.data && response.data != "false") {
-                    $location.url("/ng/com_quiltmania_stats/distributeur");
+                    $location.url("/ng/com_zeapps_crm_stats/distributeur");
                 }
             });
         }

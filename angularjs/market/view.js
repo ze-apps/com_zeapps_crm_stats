@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsMarketCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsMarketCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
 	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_zeapps_statistics", "com_quiltmania_stats_markets");

@@ -1,4 +1,4 @@
-app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
+app.controller("ComZeappsStatsProductstatsCtrl", ["$scope", "$route", "$routeParams", "$location", "$rootScope", "zeHttp", "menu",
 	function ($scope, $route, $routeParams, $location, $rootScope, zhttp, menu) {
 
         menu("com_zeapps_statistics", "com_quiltmania_stats_productstats");
@@ -9,9 +9,15 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
             main: [
                 {
                     format: 'input',
-                    field: 'year',
-                    type: 'number',
-                    label: 'Année'
+                    field: 'date_sales >=',
+                    type: 'date',
+                    label: 'Date de facture : Début'
+                },
+                {
+                    format: 'input',
+                    field: 'date_sales <=',
+                    type: 'date',
+                    label: 'Date de facture : Fin'
                 }
             ],
             secondaries: [
@@ -42,7 +48,19 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                     type: 'text',
                     label: 'Pays',
                     options: []
-                }
+                },
+                {
+                    format: 'input',
+                    field: 'date_sales_n_1 >=',
+                    type: 'date',
+                    label: 'Date de facture : Début (Comparatif)'
+                },
+                {
+                    format: 'input',
+                    field: 'date_sales_n_1 <=',
+                    type: 'date',
+                    label: 'Date de facture : Fin (Comparatif)'
+                },
             ]
         };
         $scope.filter_model = {};
@@ -137,7 +155,7 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                 if (response.status == 200) {
                     $scope.tree.branches = response.data;
                     $scope.category = $scope.tree.branches[0];
-                    loadList(true);
+                    //loadList(true);
                 }
             });
         }
@@ -151,12 +169,35 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
 		function loadList(context){
 			context = context || "";
 
-			var year = $scope.filter_model.year || parseInt(moment().format('YYYY'));
-            $scope.year = year;
+            var formatted_filters = {};
+            angular.forEach($scope.filter_model, function (value, key) {
+                formatted_filters[key] = value ;
+            });
 
-            var formatted_filters = angular.toJson($scope.filter_model);
-			zhttp.quiltmania_stats.product.get($scope.category.id, year, context, formatted_filters).then(function(response){
+            $scope.affiche_categorie_n = false ;
+            $scope.affiche_categorie_n_1 = false ;
+
+            // convet date JS to YYYY-MM-DD
+            var arrayFieldDate = ["date_sales >=", "date_sales <=", "date_sales_n_1 >=", "date_sales_n_1 <="] ;
+            for (var i_arrayFieldDate = 0 ; i_arrayFieldDate < arrayFieldDate.length ; i_arrayFieldDate++) {
+                if (formatted_filters[arrayFieldDate[i_arrayFieldDate]] != undefined) {
+                    formatted_filters[arrayFieldDate[i_arrayFieldDate]] = formatted_filters[arrayFieldDate[i_arrayFieldDate]].getFullYear() + "-" + (formatted_filters[arrayFieldDate[i_arrayFieldDate]].getMonth() + 1) + "-" + formatted_filters[arrayFieldDate[i_arrayFieldDate]].getDate();
+                }
+            }
+
+
+
+			zhttp.quiltmania_stats.product.get($scope.category.id, context, formatted_filters).then(function(response){
                 if(response.data && response.data != "false"){
+                    if ($scope.filter_model["date_sales >="] || $scope.filter_model["date_sales <="]) {
+                        $scope.affiche_categorie_n = true ;
+                    }
+
+                    if ($scope.filter_model["date_sales_n_1 >="] || $scope.filter_model["date_sales_n_1 <="]) {
+                        $scope.affiche_categorie_n_1 = true ;
+                    }
+
+
                     $scope.categories = response.data.categories;
                     $scope.labelCategories = [];
                     $scope.dataCategories = [[],[]];
@@ -187,6 +228,12 @@ app.controller("ComQuiltmaniaStatsProductstatsCtrl", ["$scope", "$route", "$rout
                         $scope.dataProducts[1].push(product.total_ht);
                         $scope.dataProductsQty[1].push(product.qty);
                     });
+
+
+
+
+                    $scope.infoSerie = response.data.infoSerie ;
+                    $scope.infoSerie_n_1 = response.data.infoSerie_n_1 ;
                 }
 			});
 		}

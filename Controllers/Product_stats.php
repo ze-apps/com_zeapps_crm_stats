@@ -39,25 +39,67 @@ class Product_stats extends Controller
     public function get(Request $request)
     {
         $id_parent = $request->input("id_parent", 0);
-        $year = $request->input("year", false);
-
-
-        if (!$year) {
-            $year = intval(date('Y'));
-        }
-
-        //$category = ProductCategories::find($id_parent);
 
         $filters = array();
 
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
             // POST is actually in json format, do an internal translation
             $filters = json_decode(file_get_contents('php://input'), true);
-
-            if (isset($filters['year'])) {
-                unset($filters['year']);
-            }
         }
+
+
+
+
+
+        // calcul les dates de début et de fin
+        $dateDebut = null ;
+        $dateFin = null ;
+        $dateDebut_n_1 = null ;
+        $dateFin_n_1 = null ;
+
+        if (isset($filters['date_sales >='])) {
+            if (trim($filters['date_sales >=']) != "") {
+                $dateDebut = $filters['date_sales >='];
+            }
+            unset($filters['date_sales >=']);
+        }
+
+
+        if (isset($filters['date_sales <='])) {
+            if (trim($filters['date_sales <=']) != "") {
+                $dateFin = $filters['date_sales <='];
+            }
+            unset($filters['date_sales <=']);
+        }
+
+
+
+
+
+        if (isset($filters['date_sales_n_1 >='])) {
+            if (trim($filters['date_sales_n_1 >=']) != "") {
+                $dateDebut_n_1 = $filters['date_sales_n_1 >='];
+            }
+            unset($filters['date_sales_n_1 >=']);
+        }
+
+
+        if (isset($filters['date_sales_n_1 <='])) {
+            if (trim($filters['date_sales_n_1 <=']) != "") {
+                $dateFin_n_1 = $filters['date_sales_n_1 <='];
+            }
+            unset($filters['date_sales_n_1 <=']);
+        }
+
+
+        if (!$dateDebut && !$dateFin) {
+            $dateDebut = date("Y") . "-01-01" ;
+            $dateFin = date("Y") . "-12-31" ;
+        }
+
+
+
+
 
         if ($categories = ProductCategories::where('id_parent', $id_parent)->get()) {
             foreach ($categories as $cat) {
@@ -71,17 +113,20 @@ class Product_stats extends Controller
                 $qty[0] = 0;
                 $qty[1] = 0;
 
-
-
-                if ($sums = ProductCategories::turnover($year, $filters)) {
+                if ($dateDebut || $dateFin) {
+                    $sums = ProductCategories::turnover($dateDebut, $dateFin, $filters) ;
                     foreach ($sums as $sum) {
-                        if ($sum->year == $year) {
-                            $total_ht[0] += floatval($sum->total_ht);
-                            $qty[0] += floatval($sum->qty);
-                        } elseif ($sum->year == ($year - 1)) {
-                            $total_ht[1] += floatval($sum->total_ht);
-                            $qty[1] += floatval($sum->qty);
-                        }
+                        $total_ht[0] += floatval($sum->total_ht);
+                        $qty[0] += floatval($sum->qty);
+                    }
+                }
+
+
+                if ($dateDebut_n_1 || $dateFin_n_1) {
+                    $sums = ProductCategories::turnover($dateDebut_n_1, $dateFin_n_1, $filters) ;
+                    foreach ($sums as $sum) {
+                        $total_ht[1] += floatval($sum->total_ht);
+                        $qty[1] += floatval($sum->qty);
                     }
                 }
 
@@ -99,14 +144,44 @@ class Product_stats extends Controller
         }
 
         $products = [];
-        if (!$products[0] = Products::top10($year, $filters)) {
+        if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters)) {
             $products[0] = [];
         }
-        if (!$products[1] = Products::top10($year - 1, $filters)) {
+        if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters)) {
             $products[1] = [];
         }
 
+
+
+
+        $serie_label = "" ;
+
+        if ($dateDebut && $dateFin) {
+            $serie_label .= " du " . date("d/m/Y", strtotime($dateDebut)) . " au " . date("d/m/Y", strtotime($dateFin)) ;
+        } elseif ($dateDebut) {
+            $serie_label .= " depuis le " . date("d/m/Y", strtotime($dateDebut)) ;
+        } elseif ($dateFin) {
+            $serie_label .= " jusqu'au " . date("d/m/Y", strtotime($dateFin)) ;
+        }
+
+
+
+        $serie_label_n_1 = "" ;
+
+        if ($dateDebut_n_1 && $dateFin_n_1) {
+            $serie_label_n_1 .= " du " . date("d/m/Y", strtotime($dateDebut_n_1)) . " au " . date("d/m/Y", strtotime($dateFin_n_1)) ;
+        } elseif ($dateDebut_n_1) {
+            $serie_label_n_1 .= " depuis le " . date("d/m/Y", strtotime($dateDebut_n_1)) ;
+        } elseif ($dateFin_n_1) {
+            $serie_label_n_1 .= " jusqu'au " . date("d/m/Y", strtotime($dateFin_n_1)) ;
+        }
+
+
+
+
         echo json_encode(array(
+            'infoSerie' => $serie_label,
+            'infoSerie_n_1' => $serie_label_n_1,
             "categories" => $categories,
             "products" => $products
         ));

@@ -77,8 +77,8 @@ app.config(["$provide",
             }
 
             // PRODUCT
-            function get_product(id_parent, year, context, filters) {
-                return zeHttp.post("/com_quiltmania_stats/product_stats/get/" + id_parent + "/" + year + "/" + context, filters);
+            function get_product(id_parent, context, filters) {
+                return zeHttp.post("/com_quiltmania_stats/product_stats/get/" + id_parent + "/" + context, filters);
             }
 
             // EMAIL

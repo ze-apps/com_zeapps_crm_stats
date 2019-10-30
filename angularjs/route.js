@@ -29,6 +29,10 @@ app.config(["$routeProvider",
                 templateUrl: "/com_zeapps_crm_stats/product_stats/",
                 controller: "ComZeappsStatsProductstatsCtrl"
             })
+            .when("/ng/com_zeapps_crm_stats/products_details", {
+                templateUrl: "/com_zeapps_crm_stats/product_stats_details/",
+                controller: "ComZeappsStatsProductstatsDetailsCtrl"
+            })
             .when("/ng/com_zeapps_crm_stats/medium", {
                 templateUrl: "/com_zeapps_crm_stats/medium/",
                 controller: "ComZeappsStatsMediumCtrl"

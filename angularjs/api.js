@@ -22,6 +22,9 @@ app.config(["$provide",
                 product: {
                     get: get_product
                 },
+                product_details: {
+                    get: get_product_details
+                },
                 email: {
                     get: get_email
                 },
@@ -79,6 +82,11 @@ app.config(["$provide",
             // PRODUCT
             function get_product(id_parent, context, filters) {
                 return zeHttp.post("/com_quiltmania_stats/product_stats/get/" + id_parent + "/" + context, filters);
+            }
+
+            // PRODUCT DETAILS
+            function get_product_details(id_parent, context, filters) {
+                return zeHttp.post("/com_quiltmania_stats/product_stats_details/get/" + id_parent + "/" + context, filters);
             }
 
             // EMAIL

@@ -49,6 +49,18 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products" ;
 $tabMenu["order"] = 12 ;
 $menuLeft[] = $tabMenu ;
 
+
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_productstats_details" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Produits détails" ;
+$tabMenu["fa-icon"] = "tags" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/products_details" ;
+$tabMenu["order"] = 13 ;
+$menuLeft[] = $tabMenu ;
+
+
+
 /*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_markets" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
@@ -58,14 +70,16 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/markets" ;
 $tabMenu["order"] = 20 ;
 $menuLeft[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+
+
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_abonnement" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Abonnements" ;
 $tabMenu["fa-icon"] = "book" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/abonnements" ;
 $tabMenu["order"] = 30 ;
-$menuLeft[] = $tabMenu ;
+$menuLeft[] = $tabMenu ;*/
 
 
 
@@ -78,14 +92,14 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/medium" ;
 $tabMenu["order"] = 35 ;
 $menuLeft[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeur" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Ventes au numéro" ;
 $tabMenu["fa-icon"] = "shopping-cart" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/distributeurs" ;
 $tabMenu["order"] = 70 ;
-$menuLeft[] = $tabMenu ;
+$menuLeft[] = $tabMenu ;*/
 
 /*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_email" ;
@@ -96,14 +110,14 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/emails" ;
 $tabMenu["order"] = 40 ;
 $menuLeft[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeurs" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Vente distributeurs" ;
 $tabMenu["fa-icon"] = "shopping-cart" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/vente_distributeur" ;
 $tabMenu["order"] = 72 ;
-$menuLeft[] = $tabMenu ;
+$menuLeft[] = $tabMenu ;*/
 
 
 
@@ -139,6 +153,14 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products" ;
 $tabMenu["order"] = 12 ;
 $menuHeader[] = $tabMenu ;
 
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_productstats_details" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Produits détails" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/products_details" ;
+$tabMenu["order"] = 13 ;
+$menuHeader[] = $tabMenu ;
+
 /*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_markets" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
@@ -147,13 +169,13 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/markets" ;
 $tabMenu["order"] = 20 ;
 $menuHeader[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_abonnement" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Abonnements" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/abonnements" ;
 $tabMenu["order"] = 30;
-$menuHeader[] = $tabMenu ;
+$menuHeader[] = $tabMenu ;*/
 
 
 
@@ -165,14 +187,14 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/medium" ;
 $tabMenu["order"] = 35 ;
 $menuHeader[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeur" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Ventes au numéro" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/distributeurs" ;
 $tabMenu["order"] = 70 ;
 $menuHeader[] = $tabMenu ;
-$tabMenu = array () ;
+$tabMenu = array () ;*/
 
 /*$tabMenu["id"] = "com_quiltmania_stats_email" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
@@ -181,10 +203,10 @@ $tabMenu["url"] = "/ng/com_zeapps_crm_stats/emails" ;
 $tabMenu["order"] = 40 ;
 $menuHeader[] = $tabMenu ;*/
 
-$tabMenu = array () ;
+/*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_distributeurs" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Vente distributeurs" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/vente_distributeur" ;
 $tabMenu["order"] = 72 ;
-$menuHeader[] = $tabMenu ;
+$menuHeader[] = $tabMenu ;*/

@@ -29,6 +29,16 @@ Routeur::get("/com_zeapps_crm_stats/product_stats/", 'App\\com_zeapps_crm_stats\
 Routeur::get("/com_zeapps_crm_stats/product_stats/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@chart');
 Routeur::get("/com_zeapps_crm_stats/product_stats/chartQty", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@chartQty');
 Routeur::get("/com_zeapps_crm_stats/product_stats/history", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@history');
+Routeur::post("/com_quiltmania_stats/product_stats/get/{id_parent}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@get');
+
+
+Routeur::get("/com_zeapps_crm_stats/product_stats_details/", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@index');
+Routeur::get("/com_zeapps_crm_stats/product_stats_details/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@chart');
+Routeur::get("/com_zeapps_crm_stats/product_stats_details/chartQty", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@chartQty');
+Routeur::get("/com_zeapps_crm_stats/product_stats_details/history", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@history');
+Routeur::post("/com_quiltmania_stats/product_stats_details/get/{id_parent}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@get');
+
+
 
 Routeur::get("/com_zeapps_crm_stats/medium/", 'App\\com_zeapps_crm_stats\\Controllers\\Medium@index');
 Routeur::get("/com_zeapps_crm_stats/medium/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Medium@chart');
@@ -46,7 +56,7 @@ Routeur::get("/com_zeapps_crm_stats/distributeurs/history", 'App\\com_zeapps_crm
 Routeur::get("/com_zeapps_crm_stats/overview/", 'App\\com_zeapps_crm_stats\\Controllers\\Overview@index');
 
 
-Routeur::post("/com_quiltmania_stats/product_stats/get/{id_parent}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats@get');
+
 
 
 

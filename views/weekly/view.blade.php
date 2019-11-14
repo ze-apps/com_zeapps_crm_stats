@@ -24,16 +24,16 @@
                 <tr ng-repeat="stat_hebdomaire in stats_hebdomaire">
                     <td class="text-center">@{{ stat_hebdomaire.semaine }}</td>
                     <td class="text-center">@{{ stat_hebdomaire.semaine_date }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.qInc }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.particuliers }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.salons }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.boutiques }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.total }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.totalSansQInc }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.totalNMoins1 }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.totalNMoins1SansQInc }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.moyenneCA }}</td>
-                    <td class="text-right">@{{ stat_hebdomaire.moyenneCASansQInc }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.qInc | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.particuliers | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.salons | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.boutiques | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.total | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.totalSansQInc | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.totalNMoins1 | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.totalNMoins1SansQInc | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.moyenneCA | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.moyenneCASansQInc | number : 2 }}</td>
                 </tr>
                 </tbody>
             </table>

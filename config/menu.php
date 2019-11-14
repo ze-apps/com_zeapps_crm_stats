@@ -15,6 +15,16 @@ $menuLeft[] = $tabMenu ;*/
 
 
 /********** insert in left menu ************/
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_weekly" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Hebdomadaire" ;
+$tabMenu["fa-icon"] = "tags" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/weekly" ;
+$tabMenu["order"] = 9 ;
+$menuLeft[] = $tabMenu ;
+
+
 
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_turnover" ;
@@ -127,6 +137,15 @@ $menuLeft[] = $tabMenu ;*/
 
 
 /********** insert in top menu ************/
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_weekly" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Hebdomadaire" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/weekly" ;
+$tabMenu["order"] = 9 ;
+$menuHeader[] = $tabMenu ;
+
+
 $tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_turnover" ;
 $tabMenu["space"] = "com_zeapps_statistics" ;

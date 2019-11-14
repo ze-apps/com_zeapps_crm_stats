@@ -2,6 +2,10 @@ app.config(["$routeProvider",
     function ($routeProvider) {
         $routeProvider
         // OVERVIEW
+            .when("/ng/com_zeapps_crm_stats/weekly", {
+                templateUrl: "/com_zeapps_crm_stats/weekly",
+                controller: "ComZeappsStatsWeeklyCtrl"
+            })
             .when("/ng/com_zeapps_crm_stats/overview", {
                 templateUrl: "/com_zeapps_crm_stats/overview/",
                 controller: "ComZeappsStatsOverviewCtrl"

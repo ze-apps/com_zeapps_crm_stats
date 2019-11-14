@@ -4,6 +4,9 @@ app.config(["$provide",
             var zeHttp = $delegate;
 
             zeHttp.quiltmania_stats = {
+                weekly: {
+                    get: get_weekly
+                },
                 turnover: {
                     get: get_turnover
                 },
@@ -51,6 +54,11 @@ app.config(["$provide",
             };
 
             return zeHttp;
+
+            // WEEKLY
+            function get_weekly() {
+                return zeHttp.get("/com_zeapps_crm_stats/weekly/get");
+            }
 
             // TURNOVER
             function get_turnover(filters) {

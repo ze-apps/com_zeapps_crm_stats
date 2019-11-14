@@ -56,6 +56,10 @@ Routeur::get("/com_zeapps_crm_stats/distributeurs/history", 'App\\com_zeapps_crm
 Routeur::get("/com_zeapps_crm_stats/overview/", 'App\\com_zeapps_crm_stats\\Controllers\\Overview@index');
 
 
+Routeur::get("/com_zeapps_crm_stats/weekly", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@index');
+Routeur::get("/com_zeapps_crm_stats/weekly/get", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@get');
+
+
 
 
 

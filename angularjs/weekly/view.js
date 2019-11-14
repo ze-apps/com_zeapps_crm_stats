@@ -3,34 +3,23 @@ app.controller("ComZeappsStatsWeeklyCtrl", ["$scope", "$route", "$routeParams", 
 
         menu("com_zeapps_statistics", "com_quiltmania_stats_weekly");
 
-		$scope.loadList = loadList;
-
 		$scope.stats_hebdomaire = [];
-
-		function loadList(context) {
-
+		$scope.loadList = loadList;
+		function loadList() {
 			$scope.stats_hebdomaire = [];
 			zhttp.quiltmania_stats.weekly.get().then(function(response){
 				if(response.data && response.data != "false"){
 					$scope.stats_hebdomaire = response.data;
-					/*$scope.stats_hebdomaire.push({
-						semaine: 1,
-						qInc: 2,
-						particuliers: 3,
-						salons: 4,
-						boutiques: 5,
-						total: 6,
-						totalSansQInc: 7,
-						totalNMoins1: 8,
-						moyenneCA: 9,
-						moyenneCASansQInc: 10,
-					});*/
 				}
 			});
-
-
-
-
 		}
         loadList();
+
+		$scope.export_excel = function () {
+			zhttp.quiltmania_stats.weekly.export().then(function (response) {
+				if (response.data && response.data != "false") {
+					window.document.location.href = '/download-storage/' + angular.fromJson(response.data) ;
+				}
+			});
+		};
 	}]);

@@ -8,6 +8,9 @@ use Zeapps\Core\Session;
 
 use App\com_zeapps_crm\Models\Invoice\Invoices;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Zeapps\Core\Storage;
 
 
 class Weekly extends Controller
@@ -44,29 +47,29 @@ class Weekly extends Controller
         return $ret;
     }
 
-    public function get(Request $request)
+
+
+    private function getData()
     {
         $data = [];
         $currentWeek = (int)date('W');
         $currentYear = (int)date('Y');
 
 
-
         // détermine la semaine de début d'analyse
-        $anneeAnalyse = (int)date('Y')-1 ;
-        $semaineAnalyse = (int)date('W') ;
+        $anneeAnalyse = (int)date('Y') - 1;
+        $semaineAnalyse = (int)date('W');
 
         if ($semaineAnalyse == 53 && $this->getIsoWeeksInYear($anneeAnalyse) == 52) {
             $anneeAnalyse++;
-            $semaineAnalyse = 1 ;
+            $semaineAnalyse = 1;
         }
 
 
-
-        $onContinue = true ;
-        $totalMoyenneCA = 0 ;
-        $totalMoyenneCASansQInc = 0 ;
-        $nbSemaineMoyenneCA = 0 ;
+        $onContinue = true;
+        $totalMoyenneCA = 0;
+        $totalMoyenneCASansQInc = 0;
+        $nbSemaineMoyenneCA = 0;
 
 
         while ($onContinue) {
@@ -74,25 +77,25 @@ class Weekly extends Controller
 
             if ($semaineAnalyse == $this->getIsoWeeksInYear($anneeAnalyse)) {
                 $anneeAnalyse++;
-                $semaineAnalyse = 1 ;
+                $semaineAnalyse = 1;
             }
 
 
-            $tabDate = $this->getStartAndEndDate($semaineAnalyse, $anneeAnalyse) ;
-            $tabDateFR = $this->getStartAndEndDateFR($semaineAnalyse, $anneeAnalyse) ;
-            $tabDateNMoins1 = $this->getStartAndEndDate($semaineAnalyse, $anneeAnalyse-1) ;
+            $tabDate = $this->getStartAndEndDate($semaineAnalyse, $anneeAnalyse);
+            $tabDateFR = $this->getStartAndEndDateFR($semaineAnalyse, $anneeAnalyse);
+            $tabDateNMoins1 = $this->getStartAndEndDate($semaineAnalyse, $anneeAnalyse - 1);
 
 
-            $qInc = 0 ;
-            $particuliers = 0 ;
-            $salons = 0 ;
-            $boutiques = 0 ;
-            $total = 0 ;
-            $totalSansQInc = 0 ;
-            $totalNMoins1 = 0 ;
-            $totalNMoins1SansQInc = 0 ;
-            $moyenneCA = 0 ;
-            $moyenneCASansQInc = 0 ;
+            $qInc = 0;
+            $particuliers = 0;
+            $salons = 0;
+            $boutiques = 0;
+            $total = 0;
+            $totalSansQInc = 0;
+            $totalNMoins1 = 0;
+            $totalNMoins1SansQInc = 0;
+            $moyenneCA = 0;
+            $moyenneCASansQInc = 0;
 
 
             // Recherche les factures
@@ -106,14 +109,14 @@ class Weekly extends Controller
                 ->get();
 
             foreach ($invoicesNMoins1 as $invoice) {
-                $totalNMoins1 += $invoice->total_ht ;
+                $totalNMoins1 += $invoice->total_ht;
                 if ($invoice->id_company != 1389) {
                     $totalNMoins1SansQInc += $invoice->total_ht;
                 }
             }
 
             foreach ($invoices as $invoice) {
-                $total += $invoice->total_ht ;
+                $total += $invoice->total_ht;
 
                 if ($invoice->id_company == 1389) {
                     $qInc += $invoice->total_ht;
@@ -127,32 +130,164 @@ class Weekly extends Controller
             }
 
 
-            $totalSansQInc = $total - $qInc ;
-            $totalMoyenneCA += $total ;
-            $totalMoyenneCASansQInc += $totalSansQInc ;
+            $totalSansQInc = $total - $qInc;
+            $totalMoyenneCA += $total;
+            $totalMoyenneCASansQInc += $totalSansQInc;
             $nbSemaineMoyenneCA++;
 
-            $moyenneCA = $totalMoyenneCA / $nbSemaineMoyenneCA ;
-            $moyenneCASansQInc = $totalMoyenneCASansQInc / $nbSemaineMoyenneCA ;
+            $moyenneCA = $totalMoyenneCA / $nbSemaineMoyenneCA;
+            $moyenneCASansQInc = $totalMoyenneCASansQInc / $nbSemaineMoyenneCA;
 
             $data[] = array("semaine" => $anneeAnalyse . "-" . $semaineAnalyse,
-                "semaine_date"=> $tabDateFR["week_start"] . " au " . $tabDateFR["week_end"],
-                "qInc" => number_format($qInc, 2, ",", " "),
-                "particuliers" => number_format($particuliers, 2, ",", " "),
-                "salons" => number_format($salons, 2, ",", " "),
-                "boutiques" => number_format($boutiques, 2, ",", " "),
-                "total" => number_format($total, 2, ",", " "),
-                "totalSansQInc" => number_format($totalSansQInc, 2, ",", " "),
-                "totalNMoins1" => number_format($totalNMoins1, 2, ",", " "),
-                "totalNMoins1SansQInc" => number_format($totalNMoins1SansQInc, 2, ",", " "),
-                "moyenneCA" => number_format($moyenneCA, 2, ",", " "),
-                "moyenneCASansQInc" => number_format($moyenneCASansQInc, 2, ",", " "));
+                "semaine_date" => $tabDateFR["week_start"] . " au " . $tabDateFR["week_end"],
+                "qInc" => $qInc,
+                "particuliers" => $particuliers,
+                "salons" => $salons,
+                "boutiques" => $boutiques,
+                "total" => $total,
+                "totalSansQInc" => $totalSansQInc,
+                "totalNMoins1" => $totalNMoins1,
+                "totalNMoins1SansQInc" => $totalNMoins1SansQInc,
+                "moyenneCA" => $moyenneCA,
+                "moyenneCASansQInc" => $moyenneCASansQInc);
 
             if ($anneeAnalyse == $currentYear && $semaineAnalyse == $currentWeek) {
-                $onContinue = false ;
+                $onContinue = false;
             }
         }
 
-        echo json_encode($data);
+        $data = array_reverse($data);
+
+        return $data;
+    }
+
+    public function get(Request $request)
+    {
+        echo json_encode($this->getData());
+    }
+
+    public function getExcel() {
+        $currentWeek = (int)date('W');
+        $currentYear = (int)date('Y');
+
+        $data = $this->getData() ;
+
+        $objPHPExcel = new Spreadsheet();
+        $objPHPExcel->getActiveSheet()->setCellValue('A1', "Semaine");
+        $objPHPExcel->getActiveSheet()->setCellValue('B1', "Date");
+        $objPHPExcel->getActiveSheet()->setCellValue('C1', "Q. Inc");
+        $objPHPExcel->getActiveSheet()->setCellValue('D1', "Particuliers");
+        $objPHPExcel->getActiveSheet()->setCellValue('E1', "Salons");
+        $objPHPExcel->getActiveSheet()->setCellValue('F1', "Boutiques");
+        $objPHPExcel->getActiveSheet()->setCellValue('G1', "Total");
+        $objPHPExcel->getActiveSheet()->setCellValue('H1', "Total sans Q. Inc");
+        $objPHPExcel->getActiveSheet()->setCellValue('I1', "Total N-1");
+        $objPHPExcel->getActiveSheet()->setCellValue('J1', "Total N-1 sans Q. Inc");
+        $objPHPExcel->getActiveSheet()->setCellValue('K1', "Moyenne CA");
+        $objPHPExcel->getActiveSheet()->setCellValue('L1', "Moyenne CA sans Q. Inc");
+
+        $nLigne = 1 ;
+        foreach ($data as $ligne) {
+            $nLigne++ ;
+
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $nLigne, $ligne["semaine"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . $nLigne, $ligne["semaine_date"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . $nLigne, $ligne["qInc"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . $nLigne, $ligne["particuliers"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . $nLigne, $ligne["salons"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . $nLigne, $ligne["boutiques"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . $nLigne, $ligne["total"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . $nLigne, $ligne["totalSansQInc"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . $nLigne, $ligne["totalNMoins1"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('J' . $nLigne, $ligne["totalNMoins1SansQInc"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('K' . $nLigne, $ligne["moyenneCA"]);
+            $objPHPExcel->getActiveSheet()->setCellValue('L' . $nLigne, $ligne["moyenneCASansQInc"]);
+
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('C' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('D' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('E' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('F' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('G' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('H' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('I' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('J' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('K' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+            $objPHPExcel->getActiveSheet()->getStyle('L' . $nLigne)->getNumberFormat()
+                ->setFormatCode('#,##0.00');
+
+
+
+            // formatage des 2 premières colonnes
+            $styleArray = [
+                'font' => [
+                    'bold' => true,
+                ],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                ]
+            ];
+
+            $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->applyFromArray($styleArray);
+            $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->applyFromArray($styleArray);
+        }
+
+
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+
+
+
+        // header
+        $styleArray = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ]
+        ];
+        $objPHPExcel->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleArray);
+
+
+
+        // bordure
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+        $objPHPExcel->getActiveSheet()->getStyle('A1:L' . $nLigne)->applyFromArray($styleArray);
+
+        $xlsxFilePath = Storage::getFolder("stats") . $currentYear . "-" . $currentWeek . '.xlsx';
+        $objWriter = new Xlsx($objPHPExcel);
+        $objWriter->save(BASEPATH . $xlsxFilePath);
+
+        echo json_encode($xlsxFilePath);
     }
 }

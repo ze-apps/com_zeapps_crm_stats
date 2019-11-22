@@ -57,7 +57,7 @@ class Weekly extends Controller
 
 
         // détermine la semaine de début d'analyse
-        $anneeAnalyse = (int)date('Y') - 1;
+        $anneeAnalyse = (int)date('Y') - 3;
         $semaineAnalyse = (int)date('W');
 
         if ($semaineAnalyse == 53 && $this->getIsoWeeksInYear($anneeAnalyse) == 52) {

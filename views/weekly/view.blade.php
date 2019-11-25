@@ -1,6 +1,14 @@
 <div id="breadcrumb">Statistiques hebdomadaire</div>
 <div id="content">
-    <div class="row" ng-show="stats_hebdomaire.length">
+    <div class="row">
+        <div class="col-md-6">
+            Date début : <input type="date" class="form-control input-sm" ng-model="date_debut" ng-change="update()">
+        </div>
+        <div class="col-md-6">
+            Date fin : <input type="date" class="form-control input-sm" ng-model="date_fin" ng-change="update()">
+        </div>
+    </div>
+    <div class="row" >
         <div class="col-md-12">
             <button type="button" class="btn btn-success" ng-click="export_excel()">Export excel</button>
             <table class="table table-condensed table-responsive table-striped">

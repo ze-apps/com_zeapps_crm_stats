@@ -57,8 +57,8 @@ Routeur::get("/com_zeapps_crm_stats/overview/", 'App\\com_zeapps_crm_stats\\Cont
 
 
 Routeur::get("/com_zeapps_crm_stats/weekly", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@index');
-Routeur::get("/com_zeapps_crm_stats/weekly/get", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@get');
-Routeur::get("/com_zeapps_crm_stats/weekly/getExcel", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@getExcel');
+Routeur::post("/com_zeapps_crm_stats/weekly/get", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@get');
+Routeur::post("/com_zeapps_crm_stats/weekly/getExcel", 'App\\com_zeapps_crm_stats\\Controllers\\Weekly@getExcel');
 
 
 

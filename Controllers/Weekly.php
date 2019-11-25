@@ -52,13 +52,25 @@ class Weekly extends Controller
     private function getData()
     {
         $data = [];
-        $currentWeek = (int)date('W');
-        $currentYear = (int)date('Y');
+
+        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
+            // POST is actually in json format, do an internal translation
+            $data = json_decode(file_get_contents('php://input'), true);
+        }
+
+        $date_debut = strtotime($data["date_debut"]);
+        $date_fin = strtotime($data["date_fin"]);
+
+
+        $currentWeek = (int)date('W', $date_fin);
+        $currentYear = (int)date('Y', $date_fin);
+
 
 
         // détermine la semaine de début d'analyse
-        $anneeAnalyse = (int)date('Y') - 3;
-        $semaineAnalyse = (int)date('W');
+        $semaineAnalyse = (int)date('W', $date_debut);
+        $anneeAnalyse = (int)date('Y', $date_debut);
+
 
         if ($semaineAnalyse == 53 && $this->getIsoWeeksInYear($anneeAnalyse) == 52) {
             $anneeAnalyse++;
@@ -75,7 +87,7 @@ class Weekly extends Controller
         while ($onContinue) {
             $semaineAnalyse++;
 
-            if ($semaineAnalyse == $this->getIsoWeeksInYear($anneeAnalyse)) {
+            if ($semaineAnalyse > $this->getIsoWeeksInYear($anneeAnalyse)) {
                 $anneeAnalyse++;
                 $semaineAnalyse = 1;
             }
@@ -161,7 +173,7 @@ class Weekly extends Controller
         return $data;
     }
 
-    public function get(Request $request)
+    public function get()
     {
         echo json_encode($this->getData());
     }
@@ -188,60 +200,61 @@ class Weekly extends Controller
 
         $nLigne = 1 ;
         foreach ($data as $ligne) {
-            $nLigne++ ;
+            if (is_array($ligne)) {
+                $nLigne++;
 
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . $nLigne, $ligne["semaine"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('B' . $nLigne, $ligne["semaine_date"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('C' . $nLigne, $ligne["qInc"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('D' . $nLigne, $ligne["particuliers"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('E' . $nLigne, $ligne["salons"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('F' . $nLigne, $ligne["boutiques"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('G' . $nLigne, $ligne["total"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('H' . $nLigne, $ligne["totalSansQInc"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('I' . $nLigne, $ligne["totalNMoins1"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('J' . $nLigne, $ligne["totalNMoins1SansQInc"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('K' . $nLigne, $ligne["moyenneCA"]);
-            $objPHPExcel->getActiveSheet()->setCellValue('L' . $nLigne, $ligne["moyenneCASansQInc"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . $nLigne, $ligne["semaine"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . $nLigne, $ligne["semaine_date"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('C' . $nLigne, $ligne["qInc"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('D' . $nLigne, $ligne["particuliers"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('E' . $nLigne, $ligne["salons"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('F' . $nLigne, $ligne["boutiques"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('G' . $nLigne, $ligne["total"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('H' . $nLigne, $ligne["totalSansQInc"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('I' . $nLigne, $ligne["totalNMoins1"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('J' . $nLigne, $ligne["totalNMoins1SansQInc"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('K' . $nLigne, $ligne["moyenneCA"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('L' . $nLigne, $ligne["moyenneCASansQInc"]);
 
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('C' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('D' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('E' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('F' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('G' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('H' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('I' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('J' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('K' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
-            $objPHPExcel->getActiveSheet()->getStyle('L' . $nLigne)->getNumberFormat()
-                ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('C' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('D' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('E' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('F' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('G' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('H' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('I' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('J' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('K' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('L' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
 
 
+                // formatage des 2 premières colonnes
+                $styleArray = [
+                    'font' => [
+                        'bold' => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ]
+                ];
 
-            // formatage des 2 premières colonnes
-            $styleArray = [
-                'font' => [
-                    'bold' => true,
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                ]
-            ];
-
-            $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->applyFromArray($styleArray);
-            $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->applyFromArray($styleArray);
+                $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->applyFromArray($styleArray);
+                $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->applyFromArray($styleArray);
+            }
         }
 
 

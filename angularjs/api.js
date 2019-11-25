@@ -57,11 +57,11 @@ app.config(["$provide",
             return zeHttp;
 
             // WEEKLY
-            function get_weekly() {
-                return zeHttp.get("/com_zeapps_crm_stats/weekly/get");
+            function get_weekly(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/weekly/get", filters);
             }
-            function export_weekly() {
-                return zeHttp.get("/com_zeapps_crm_stats/weekly/getExcel");
+            function export_weekly(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/weekly/getExcel", filters);
             }
 
             // TURNOVER

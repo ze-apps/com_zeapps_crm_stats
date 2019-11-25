@@ -85,8 +85,6 @@ class Weekly extends Controller
 
 
         while ($onContinue) {
-            $semaineAnalyse++;
-
             if ($semaineAnalyse > $this->getIsoWeeksInYear($anneeAnalyse)) {
                 $anneeAnalyse++;
                 $semaineAnalyse = 1;
@@ -166,6 +164,8 @@ class Weekly extends Controller
             if ($anneeAnalyse == $currentYear && $semaineAnalyse == $currentWeek) {
                 $onContinue = false;
             }
+
+            $semaineAnalyse++;
         }
 
         $data = array_reverse($data);

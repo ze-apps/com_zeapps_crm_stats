@@ -51,15 +51,15 @@ class Weekly extends Controller
 
     private function getData()
     {
-        $data = [];
+        $dataSrc = [];
 
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
             // POST is actually in json format, do an internal translation
-            $data = json_decode(file_get_contents('php://input'), true);
+            $dataSrc = json_decode(file_get_contents('php://input'), true);
         }
 
-        $date_debut = strtotime($data["date_debut"]);
-        $date_fin = strtotime($data["date_fin"]);
+        $date_debut = strtotime($dataSrc["date_debut"]);
+        $date_fin = strtotime($dataSrc["date_fin"]);
 
 
         $currentWeek = (int)date('W', $date_fin);

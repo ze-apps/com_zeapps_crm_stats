@@ -123,14 +123,8 @@ app.controller("ComZeappsStatsFlowingHorizonCtrl", ["$scope", "$route", "$routeP
 
 
         $scope.isLoaded = false ;
-        loadList();
-
-
-
         function loadList() {
             $scope.isLoaded = true ;
-
-            console.log($scope.filter_model);
 
             var filtre = {};
             angular.forEach($scope.filter_model, function (value, key) {
@@ -140,13 +134,30 @@ app.controller("ComZeappsStatsFlowingHorizonCtrl", ["$scope", "$route", "$routeP
             zhttp.quiltmania_stats.flowing_horizon.get(filtre).then(function (response) {
                 if (response.data && response.data != "false") {
                     $scope.series = [
-                        __t("Horizon coulant")
+                        __t("Horizon glissant")
                     ];
                     $scope.labels = response.data.labels;
                     $scope.data = response.data.total;
                 }
             });
         }
+        loadList();
+
+
+        $scope.export_excel = function () {
+            var filtre = {};
+            angular.forEach($scope.filter_model, function (value, key) {
+                filtre[key] = value;
+            });
+
+
+
+            zhttp.quiltmania_stats.flowing_horizon.export(filtre).then(function (response) {
+                if (response.data && response.data != "false") {
+                    window.document.location.href = '/download-storage/' + angular.fromJson(response.data);
+                }
+            });
+        };
 
         function hasImproved(a, b) {
             return a > b ? 'fa-arrow-up text-success' : (a < b ? 'fa-arrow-down text-danger' : 'fa-minus text-info');

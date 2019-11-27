@@ -12,7 +12,8 @@ app.config(["$provide",
                     get: get_turnover
                 },
                 flowing_horizon: {
-                    get: get_flowing_horizon
+                    get: get_flowing_horizon,
+                    export: export_flowing_horizon
                 },
                 market: {
                     get: get_market
@@ -73,6 +74,12 @@ app.config(["$provide",
             function get_flowing_horizon(filters) {
                 return zeHttp.post("/com_zeapps_crm_stats/flowing-horizon/get", filters);
             }
+
+            function export_flowing_horizon(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/flowing-horizon/export", filters);
+            }
+
+
 
 
 

@@ -13,6 +13,7 @@ Routeur::get("/com_zeapps_crm_stats/flowing-horizon", 'App\\com_zeapps_crm_stats
 Routeur::get("/com_zeapps_crm_stats/flowing-horizon/chart", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@chart');
 Routeur::get("/com_zeapps_crm_stats/flowing-horizon/history", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@history');
 Routeur::post("/com_zeapps_crm_stats/flowing-horizon/get", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@get');
+Routeur::post("/com_zeapps_crm_stats/flowing-horizon/export", 'App\\com_zeapps_crm_stats\\Controllers\\FlowingHorizon@getExcel');
 
 
 

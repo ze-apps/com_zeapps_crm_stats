@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-xs btn-success">
+        <button type="button" class="btn btn-xs btn-success" ng-click="export_excel()">
             <i class="fa fa-fw fa-download"></i> Export Excel
         </button>
     </div>

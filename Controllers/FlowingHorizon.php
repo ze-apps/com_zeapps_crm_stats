@@ -3,6 +3,8 @@
 namespace App\com_zeapps_crm_stats\Controllers;
 
 use App\com_zeapps_crm\Models\Invoice\Invoices;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Zeapps\Core\Controller;
 use Zeapps\Core\Request;
 use Zeapps\Core\Session;
@@ -10,6 +12,7 @@ use Zeapps\Core\Session;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 use App\com_zeapps_crm\Models\Invoice;
+use Zeapps\Core\Storage;
 
 class FlowingHorizon extends Controller
 {
@@ -31,8 +34,7 @@ class FlowingHorizon extends Controller
         return view("flowing-horizon/history", $data, BASEPATH . 'App/com_zeapps_crm_stats/views/');
     }
 
-    public function get(Request $request)
-    {
+    private function getData() {
         $filters = array();
 
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') === 0 && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== FALSE) {
@@ -69,11 +71,6 @@ class FlowingHorizon extends Controller
         $indexCA = -1 ;
         for($month=12;$month>=1;$month--) {
             $indexCA++;
-            /*if ($month == 1) {
-                $premierJour->sub(new \DateInterval('P1M'));
-            } else {
-                $premierJour->sub(new \DateInterval('P' . $periodicity . 'M'));
-            }*/
 
             $premierJour->add(new \DateInterval('P' . $periodicity . 'M'));
 
@@ -84,9 +81,6 @@ class FlowingHorizon extends Controller
             $dernierJour = clone $premierJour;
             $dernierJour->add(new \DateInterval('P1M'));
             $dernierJour->sub(new \DateInterval('P1D'));
-
-            //echo $premmierJourPeriode->format('d/m/Y') . " - " . $dernierJour->format('d/m/Y') . "<br>";
-
 
 
             $labels[] = __t($dernierJour->format('M')) . " " . $dernierJour->format('Y');
@@ -121,25 +115,73 @@ class FlowingHorizon extends Controller
             if ($invoice) {
                 $total[0][$indexCA] = $invoice->total_ht;
             }
-
-
-
-
-            // TODO : intégrer les ventes des distributeurs
-            // TODO : intégrer les ventes des distributeurs
-            // TODO : intégrer les ventes des distributeurs
-            // TODO : intégrer les ventes des distributeurs
-            // TODO : intégrer les ventes des distributeurs
-            // TODO : intégrer les ventes des distributeurs
-
-
-
-
         }
 
-        echo json_encode(array(
+        return array(
             'total' => $total,
             'labels' => $labels
-        ));
+        );
+    }
+
+    public function get()
+    {
+        echo json_encode($this->getData());
+    }
+
+    public function getExcel() {
+        $data = $this->getData() ;
+        $total = $data["total"];
+        $labels = $data["labels"];
+
+        $objPHPExcel = new Spreadsheet();
+        $objPHPExcel->getActiveSheet()->setCellValue('A1', "Mois");
+        $objPHPExcel->getActiveSheet()->setCellValue('B1', "Horizon glissant");
+
+        $nLigne = 1 ;
+        foreach ($labels as $keyLabel => $label) {
+                $nLigne++;
+
+                $objPHPExcel->getActiveSheet()->setCellValue('A' . $nLigne, $label);
+                $objPHPExcel->getActiveSheet()->setCellValue('B' . $nLigne, $total[0][$keyLabel]);
+
+                $objPHPExcel->getActiveSheet()->getStyle('B' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0.00');
+        }
+
+
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+
+
+
+        // header
+        $styleArray = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ]
+        ];
+        $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->applyFromArray($styleArray);
+
+
+
+        // bordure
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+        $objPHPExcel->getActiveSheet()->getStyle('A1:B' . $nLigne)->applyFromArray($styleArray);
+
+        $xlsxFilePath = Storage::getFolder("stats") . 'horizon-glissant.xlsx';
+        $objWriter = new Xlsx($objPHPExcel);
+        $objWriter->save(BASEPATH . $xlsxFilePath);
+
+        echo json_encode($xlsxFilePath);
     }
 }

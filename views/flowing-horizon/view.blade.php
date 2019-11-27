@@ -1,4 +1,4 @@
-<div id="breadcrumb">Horizon coulant</div>
+<div id="breadcrumb">Horizon glissant</div>
 <div id="content">
     <div class="row">
         <div class="col-md-12">

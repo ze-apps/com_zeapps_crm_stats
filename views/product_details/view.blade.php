@@ -17,9 +17,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3>
-                        <!--<button type="button" class="btn btn-xs btn-success pull-right">
+                        <button type="button" class="btn btn-xs btn-success pull-right" ng-click="export_excel()">
                             <i class="fa fa-fw fa-download"></i> Export Excel
-                        </button>-->
+                        </button>
                         @{{category.name}}
                     </h3>
                 </div>

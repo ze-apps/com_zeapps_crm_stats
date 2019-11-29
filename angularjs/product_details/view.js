@@ -208,6 +208,33 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
 			});
 		}
 
+
+
+
+        $scope.export_excel = function () {
+            var context = "" ;
+
+            var formatted_filters = {} ;
+            angular.forEach($scope.filter_model, function (value, key) {
+                formatted_filters[key] = value ;
+            });
+
+            // convet date JS to YYYY-MM-DD
+            var arrayFieldDate = ["date_sales >=", "date_sales <=", "date_sales_n_1 >=", "date_sales_n_1 <="] ;
+            for (var i_arrayFieldDate = 0 ; i_arrayFieldDate < arrayFieldDate.length ; i_arrayFieldDate++) {
+                if (formatted_filters[arrayFieldDate[i_arrayFieldDate]] != undefined) {
+                    formatted_filters[arrayFieldDate[i_arrayFieldDate]] = formatted_filters[arrayFieldDate[i_arrayFieldDate]].getFullYear() + "-" + (formatted_filters[arrayFieldDate[i_arrayFieldDate]].getMonth() + 1) + "-" + formatted_filters[arrayFieldDate[i_arrayFieldDate]].getDate();
+                }
+            }
+
+            zhttp.quiltmania_stats.product_details.export($scope.category.id, context, formatted_filters).then(function(response){
+                if (response.data && response.data != "false") {
+                    window.document.location.href = '/download-storage/' + angular.fromJson(response.data);
+                }
+            });
+        };
+
+
 		function chartClick(points){
 			if(points.length > 0) {
 				var point = points[0];

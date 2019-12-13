@@ -2,6 +2,9 @@
 
 namespace App\com_zeapps_crm_stats\Controllers;
 
+use App\com_quiltmania_abonnement\Models\AbonnementClient;
+use App\com_zeapps_contact\Models\Companies;
+use App\com_zeapps_contact\Models\Contacts;
 use Zeapps\Core\Controller;
 use Zeapps\Core\Request;
 use Zeapps\Core\Session;
@@ -106,6 +109,43 @@ class Weekly extends Controller
             $totalNMoins1SansQInc = 0;
             $moyenneCA = 0;
             $moyenneCASansQInc = 0;
+            $nbNouveauClient = 0 ;
+            $nbNouveauAbonnement = 0 ;
+            $nbRenouvellementAbonnement = 0 ;
+
+
+
+            // recherche le nombre de nouveau contact + entreprise
+            $nbNouveauClient = Contacts::where("created_at", ">=", $tabDate['week_start'] . " 00:00:00")
+                ->where("created_at", "<=", $tabDate['week_end'] . " 23:59:59")
+                ->count();
+
+            $nbNouveauClient += Companies::where("created_at", ">=", $tabDate['week_start'] . " 00:00:00")
+                ->where("created_at", "<=", $tabDate['week_end'] . " 23:59:59")
+                ->count();
+
+
+            // recherche les abonnements
+            $abonnementClients = AbonnementClient::where("created_at", ">=", $tabDate['week_start'] . " 00:00:00")
+                ->where("created_at", "<=", $tabDate['week_end'] . " 23:59:59")
+                ->get();
+
+            foreach ($abonnementClients as $abonnementClient) {
+                $checkAbonnment = AbonnementClient::where("id", "!=", $abonnementClient->id) ;
+                if ($abonnementClient->id_company != 0) {
+                    $checkAbonnment = $checkAbonnment->where("id_company", $abonnementClient->id_company) ;
+                } else {
+                    $checkAbonnment = $checkAbonnment->where("id_contact", $abonnementClient->id_contact) ;
+                }
+
+                if ($checkAbonnment->count()) {
+                    $nbRenouvellementAbonnement++;
+                } else {
+                    $nbNouveauAbonnement++;
+                }
+            }
+
+
 
 
             // Recherche les factures
@@ -159,7 +199,10 @@ class Weekly extends Controller
                 "totalNMoins1" => $totalNMoins1,
                 "totalNMoins1SansQInc" => $totalNMoins1SansQInc,
                 "moyenneCA" => $moyenneCA,
-                "moyenneCASansQInc" => $moyenneCASansQInc);
+                "moyenneCASansQInc" => $moyenneCASansQInc,
+                "nbNouveauClient"=>$nbNouveauClient,
+                "nbNouveauAbonnement"=>$nbNouveauAbonnement,
+                "nbRenouvellementAbonnement"=>$nbRenouvellementAbonnement);
 
             if ($anneeAnalyse == $currentYear && $semaineAnalyse == $currentWeek) {
                 $onContinue = false;
@@ -197,6 +240,9 @@ class Weekly extends Controller
         $objPHPExcel->getActiveSheet()->setCellValue('J1', "Total N-1 sans Q. Inc");
         $objPHPExcel->getActiveSheet()->setCellValue('K1', "Moyenne CA");
         $objPHPExcel->getActiveSheet()->setCellValue('L1', "Moyenne CA sans Q. Inc");
+        $objPHPExcel->getActiveSheet()->setCellValue('M1', "Nombre nouveau client");
+        $objPHPExcel->getActiveSheet()->setCellValue('N1', "Nombre nouvel abonnement");
+        $objPHPExcel->getActiveSheet()->setCellValue('O1', "Nombre renouvellement abonnement");
 
         $nLigne = 1 ;
         foreach ($data as $ligne) {
@@ -215,6 +261,11 @@ class Weekly extends Controller
                 $objPHPExcel->getActiveSheet()->setCellValue('J' . $nLigne, $ligne["totalNMoins1SansQInc"]);
                 $objPHPExcel->getActiveSheet()->setCellValue('K' . $nLigne, $ligne["moyenneCA"]);
                 $objPHPExcel->getActiveSheet()->setCellValue('L' . $nLigne, $ligne["moyenneCASansQInc"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('M' . $nLigne, $ligne["nbNouveauClient"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('N' . $nLigne, $ligne["nbNouveauAbonnement"]);
+                $objPHPExcel->getActiveSheet()->setCellValue('O' . $nLigne, $ligne["nbRenouvellementAbonnement"]);
+
+
 
                 $objPHPExcel->getActiveSheet()->getStyle('A' . $nLigne)->getNumberFormat()
                     ->setFormatCode('#,##0.00');
@@ -240,6 +291,12 @@ class Weekly extends Controller
                     ->setFormatCode('#,##0.00');
                 $objPHPExcel->getActiveSheet()->getStyle('L' . $nLigne)->getNumberFormat()
                     ->setFormatCode('#,##0.00');
+                $objPHPExcel->getActiveSheet()->getStyle('M' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0');
+                $objPHPExcel->getActiveSheet()->getStyle('N' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0');
+                $objPHPExcel->getActiveSheet()->getStyle('O' . $nLigne)->getNumberFormat()
+                    ->setFormatCode('#,##0');
 
 
                 // formatage des 2 premières colonnes
@@ -270,6 +327,9 @@ class Weekly extends Controller
         $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
         $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
 
 
 
@@ -282,7 +342,7 @@ class Weekly extends Controller
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ]
         ];
-        $objPHPExcel->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('A1:O1')->applyFromArray($styleArray);
 
 
 
@@ -295,7 +355,7 @@ class Weekly extends Controller
                 ],
             ],
         ];
-        $objPHPExcel->getActiveSheet()->getStyle('A1:L' . $nLigne)->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('A1:O' . $nLigne)->applyFromArray($styleArray);
 
         $xlsxFilePath = Storage::getFolder("stats") . $currentYear . "-" . $currentWeek . '.xlsx';
         $objWriter = new Xlsx($objPHPExcel);

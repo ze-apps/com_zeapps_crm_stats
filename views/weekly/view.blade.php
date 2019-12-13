@@ -26,6 +26,9 @@
                     <th class="text-center">Total N-1 sans Q. Inc</th>
                     <th class="text-center">Moyenne CA</th>
                     <th class="text-center">Moyenne CA sans Q. Inc</th>
+                    <th class="text-center">Nouveau client</th>
+                    <th class="text-center">Nouvel abonnement</th>
+                    <th class="text-center">Nombre renouvellement abonnement</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +45,9 @@
                     <td class="text-right">@{{ stat_hebdomaire.totalNMoins1SansQInc | number : 2 }}</td>
                     <td class="text-right">@{{ stat_hebdomaire.moyenneCA | number : 2 }}</td>
                     <td class="text-right">@{{ stat_hebdomaire.moyenneCASansQInc | number : 2 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.nbNouveauClient | number : 0 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.nbNouveauAbonnement | number : 0 }}</td>
+                    <td class="text-right">@{{ stat_hebdomaire.nbRenouvellementAbonnement | number : 0 }}</td>
                 </tr>
                 </tbody>
             </table>

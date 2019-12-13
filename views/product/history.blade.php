@@ -17,7 +17,7 @@
                     <label>@{{ infoSerie }}</label>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <table class="table table-condensed table-responsive table-striped">
                     <thead>
                     <tr>
@@ -37,26 +37,26 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6">
-                <table class="table table-condensed table-responsive table-striped">
-                    <thead>
-                    <tr>
-                        <th>TOP 10 Produit</th>
-                        <th class="text-right">CA</th>
-                        <th class="text-right">Quantité</th>
-                        <th class="text-right">CA / Unité</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="label in labelProducts[0] track by $index">
-                        <td>@{{ label }}</td>
-                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{dataProducts[0][$index] | currency:'€':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataProductsQty[0][$index]">@{{dataProductsQty[0][$index] | currency:'':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{(dataProducts[0][$index] / dataProductsQty[0][$index]) | currency:'€':2}}</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+{{--            <div class="col-md-6">--}}
+{{--                <table class="table table-condensed table-responsive table-striped">--}}
+{{--                    <thead>--}}
+{{--                    <tr>--}}
+{{--                        <th>TOP 10 Produit</th>--}}
+{{--                        <th class="text-right">CA</th>--}}
+{{--                        <th class="text-right">Quantité</th>--}}
+{{--                        <th class="text-right">CA / Unité</th>--}}
+{{--                    </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                    <tr ng-repeat="label in labelProducts[0] track by $index">--}}
+{{--                        <td>@{{ label }}</td>--}}
+{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{dataProducts[0][$index] | currency:'€':2}}</span></td>--}}
+{{--                        <td class="text-right"><span ng-if="dataProductsQty[0][$index]">@{{dataProductsQty[0][$index] | currency:'':2}}</span></td>--}}
+{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{(dataProducts[0][$index] / dataProductsQty[0][$index]) | currency:'€':2}}</span></td>--}}
+{{--                    </tr>--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>

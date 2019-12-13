@@ -102,7 +102,11 @@ class FlowingHorizon extends Controller
                     $invoice = $invoice->where($key, 'like', '%' . $value . '%');
                 } elseif (strpos(strtolower($key), " in") !== false) {
                     $tabKey = explode(" ", $key);
-                    $invoice = $invoice->whereIn($tabKey[0], explode(",", $value));
+                    if (strpos($value, "-")!== false) {
+                        $invoice = $invoice->whereNotIn($tabKey[0], explode(",", str_replace("-","", $value)));
+                    } else {
+                        $invoice = $invoice->whereIn($tabKey[0], explode(",", $value));
+                    }
                 } elseif (strpos($key, " ") !== false) {
                     $tabKey = explode(" ", $key);
                     $invoice = $invoice->where($tabKey[0], $tabKey[1], $value);

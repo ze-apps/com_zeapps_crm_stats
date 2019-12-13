@@ -125,7 +125,11 @@ class SalesFigures extends Controller
                 $invoices = $invoices->where($key, 'like', '%' . $value . '%');
             } elseif (strpos(strtolower($key), " in") !== false) {
                 $tabKey = explode(" ", $key);
-                $invoices = $invoices->whereIn($tabKey[0], explode(",", $value));
+                if (strpos($value, "-")!== false) {
+                    $invoices = $invoices->whereNotIn($tabKey[0], explode(",", str_replace("-","", $value)));
+                } else {
+                    $invoices = $invoices->whereIn($tabKey[0], explode(",", $value));
+                }
             } elseif (strpos($key, " ") !== false) {
                 $tabKey = explode(" ", $key);
                 $invoices = $invoices->where($tabKey[0], $tabKey[1], $value);

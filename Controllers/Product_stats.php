@@ -113,7 +113,30 @@ class Product_stats extends Controller
                 $qty[0] = 0;
                 $qty[1] = 0;
 
-                if ($dateDebut || $dateFin) {
+                $traitementPossible = true ;
+                if ($dateDebut && \DateTime::createFromFormat('Y-m-d', $dateDebut) === FALSE) {
+                    $traitementPossible = false ;
+                } else {
+                    $date_dateDebut = strtotime($dateDebut);
+                    if (date("Y", $date_dateDebut) < 1900) {
+                        $traitementPossible = false ;
+                    }
+                }
+
+                if ($dateFin && \DateTime::createFromFormat('Y-m-d', $dateFin) === FALSE) {
+                    $traitementPossible = false ;
+                } else {
+                    $date_dateFin = strtotime($dateFin);
+                    if (date("Y", $date_dateFin) < 1900) {
+                        $traitementPossible = false ;
+                    }
+                }
+
+                if (!$dateDebut && !$dateFin) {
+                    $traitementPossible = false ;
+                }
+
+                if ($traitementPossible) {
                     $sums = ProductCategories::turnover($dateDebut, $dateFin, $filters) ;
                     foreach ($sums as $sum) {
                         $total_ht[0] += floatval($sum->total_ht);
@@ -122,13 +145,41 @@ class Product_stats extends Controller
                 }
 
 
-                if ($dateDebut_n_1 || $dateFin_n_1) {
+
+
+
+
+                $traitementPossible = true ;
+                if ($dateDebut_n_1 && \DateTime::createFromFormat('Y-m-d', $dateDebut_n_1) === FALSE) {
+                    $traitementPossible = false ;
+                } else {
+                    $date_dateDebut = strtotime($dateDebut_n_1);
+                    if (date("Y", $date_dateDebut) < 1900) {
+                        $traitementPossible = false ;
+                    }
+                }
+
+                if ($dateFin_n_1 && \DateTime::createFromFormat('Y-m-d', $dateFin_n_1) === FALSE) {
+                    $traitementPossible = false ;
+                } else {
+                    $date_dateFin = strtotime($dateFin_n_1);
+                    if (date("Y", $date_dateFin) < 1900) {
+                        $traitementPossible = false ;
+                    }
+                }
+
+                if (!$dateDebut_n_1 && !$dateFin_n_1) {
+                    $traitementPossible = false ;
+                }
+
+                if ($traitementPossible) {
                     $sums = ProductCategories::turnover($dateDebut_n_1, $dateFin_n_1, $filters) ;
                     foreach ($sums as $sum) {
                         $total_ht[1] += floatval($sum->total_ht);
                         $qty[1] += floatval($sum->qty);
                     }
                 }
+
 
                 $cat->total_ht = $total_ht ;
                 $cat->qty = $qty ;
@@ -143,13 +194,15 @@ class Product_stats extends Controller
             unset($filters['id_cat']);
         }
 
+
+
         $products = [];
-        if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters)) {
-            $products[0] = [];
-        }
-        if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters)) {
-            $products[1] = [];
-        }
+//        if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters)) {
+//            $products[0] = [];
+//        }
+//        if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters)) {
+//            $products[1] = [];
+//        }
 
 
 

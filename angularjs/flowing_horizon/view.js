@@ -102,6 +102,7 @@ app.controller("ComZeappsStatsFlowingHorizonCtrl", ["$scope", "$route", "$routeP
         $scope.filters.secondaries[$id_marche_cle].options.push({id: 17, label: "UK"});
         $scope.filters.secondaries[$id_marche_cle].options.push({id: 21, label: "USA"});
         $scope.filters.secondaries[$id_marche_cle].options.push({id: '24, 27', label: "Australie / Nouvelle Zélande"});
+        $scope.filters.secondaries[$id_marche_cle].options.push({id:'-8, -13, -17, -21, -24, -27', label:"Reste du monde"});
 
 
         // pays

@@ -1,4 +1,4 @@
-<div id="breadcrumb">Ventes de produits</div>
+<div id="breadcrumb">Ventes par catégories</div>
 <div id="content">
     <div class="row">
         <div class="col-md-3">
@@ -10,6 +10,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <ze-filters class="pull-right" data-model="filter_model" data-filters="filters" data-update="loadList"></ze-filters>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well-sm bg-danger">
+                        les abonnements sont pris en compte partiellement, reportez-vous à l'écran "Produits détails" pour avoir les bonnes infos
+                    </div>
                 </div>
             </div>
 

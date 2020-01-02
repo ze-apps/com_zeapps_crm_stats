@@ -29,7 +29,7 @@ app.controller("ComZeappsStatsWeeklyCtrl", ["$scope", "$route", "$routeParams", 
 				});
 			}
 		}
-        loadList();
+        //loadList();
 
 		$scope.export_excel = function () {
 			if ($scope.date_debut < $scope.date_fin && $scope.date_debut != $scope.date_fin) {

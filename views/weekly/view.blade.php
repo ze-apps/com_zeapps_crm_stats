@@ -2,15 +2,20 @@
 <div id="content">
     <div class="row">
         <div class="col-md-6">
-            Date début : <input type="date" class="form-control input-sm" ng-model="date_debut" ng-change="update()">
+            Date début : <input type="date" class="form-control input-sm" ng-model="date_debut">
         </div>
         <div class="col-md-6">
-            Date fin : <input type="date" class="form-control input-sm" ng-model="date_fin" ng-change="update()">
+            Date fin : <input type="date" class="form-control input-sm" ng-model="date_fin">
+        </div>
+    </div>
+    <div class="row" style="margin: 15px 0px">
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-success" ng-click="update()">Rechercher</button>
+            <button type="button" class="btn btn-success" ng-click="export_excel()">Export excel</button>
         </div>
     </div>
     <div class="row" >
         <div class="col-md-12">
-            <button type="button" class="btn btn-success" ng-click="export_excel()">Export excel</button>
             <table class="table table-condensed table-responsive table-striped">
                 <thead>
                 <tr>

@@ -29,6 +29,13 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
             secondaries: [
                 {
                     format: 'select',
+                    field: 'type_client',
+                    type: 'text',
+                    label: 'Type client',
+                    options: []
+                },
+                {
+                    format: 'select',
                     field: 'id_price_list',
                     type: 'text',
                     label: 'Grille de prix',
@@ -105,20 +112,23 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
 
 
 
+        $scope.filters.secondaries[0].options = [];
+        $scope.filters.secondaries[0].options.push({id:1, label:"Particulier"});
+        $scope.filters.secondaries[0].options.push({id:2, label:"Entreprise"});
 
 
 
         // grille de prix
         zhttp.crm.price_list.get_all().then(function (response) {
             if (response.data && response.data != "false") {
-                $scope.filters.secondaries[0].options = response.data ;
+                $scope.filters.secondaries[1].options = response.data ;
             }
         });
 
         // Canal de vente
         zhttp.crm.crm_origin.get_all().then(function (response) {
             if (response.data && response.data != "false") {
-                $scope.filters.secondaries[1].options = response.data ;
+                $scope.filters.secondaries[2].options = response.data ;
             }
         });
 
@@ -126,7 +136,7 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
 
 
         // marché clé
-        $id_marche_cle = 2 ;
+        $id_marche_cle = 3 ;
         $scope.filters.secondaries[$id_marche_cle].options = [];
         $scope.filters.secondaries[$id_marche_cle].options.push({id:8, label:"France"});
         $scope.filters.secondaries[$id_marche_cle].options.push({id:13, label:"Pays-Bas"});
@@ -138,7 +148,7 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
 
 
         // pays
-        $id_pays_filtre = 3 ;
+        $id_pays_filtre = 4 ;
         zhttp.contact.countries.all().then(function (response) {
             $scope.filters.secondaries[$id_pays_filtre].options = [] ;
             if (response.data && response.data != "false") {

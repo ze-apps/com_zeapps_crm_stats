@@ -41,6 +41,13 @@ Routeur::post("/com_quiltmania_stats/product_stats_details/get/{id_parent}/{cont
 Routeur::post("/com_quiltmania_stats/product_stats_details/export/{id_parent}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Product_stats_details@getExport');
 
 
+Routeur::get("/com_zeapps_crm_stats/abonnement/", 'App\\com_zeapps_crm_stats\\Controllers\\Abonnement@index');
+Routeur::get("/com_zeapps_crm_stats/abonnement/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Abonnement@chart');
+Routeur::get("/com_zeapps_crm_stats/abonnement/chartQty", 'App\\com_zeapps_crm_stats\\Controllers\\Abonnement@chartQty');
+Routeur::get("/com_zeapps_crm_stats/abonnement/history", 'App\\com_zeapps_crm_stats\\Controllers\\Abonnement@history');
+Routeur::post("/com_quiltmania_stats/abonnement/get/{id_parent}/{context}", 'App\\com_zeapps_crm_stats\\Controllers\\Abonnement@get');
+
+
 
 Routeur::get("/com_zeapps_crm_stats/medium/", 'App\\com_zeapps_crm_stats\\Controllers\\Medium@index');
 Routeur::get("/com_zeapps_crm_stats/medium/chart", 'App\\com_zeapps_crm_stats\\Controllers\\Medium@chart');

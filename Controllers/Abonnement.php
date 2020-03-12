@@ -126,9 +126,10 @@ class Abonnement extends Controller
         }
 
         if ($traitementPossible) {
-            if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters, 0, true)) {
-                $products[0] = [];
-            }
+//            if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters, 0, true)) {
+//                $products[0] = [];
+//            }
+            $products[0] = [];
             if ($autresProduits = Products::top10Autre($dateDebut, $dateFin, $filters, 0, true)) {
                 $products[0] = array_merge($products[0], $autresProduits);
             }
@@ -166,10 +167,11 @@ class Abonnement extends Controller
         }
 
         if ($traitementPossible) {
-            if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters, 0, true)) {
-                $products[1] = [];
-            }
+//            if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters, 0, true)) {
+//                $products[1] = [];
+//            }
 
+            $products[1] = [];
             if ($autresProduits = Products::top10Autre($dateDebut_n_1, $dateFin_n_1, $filters, 0, true)) {
                 $products[1] = array_merge($products[1], $autresProduits);
             }

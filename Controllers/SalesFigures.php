@@ -138,8 +138,7 @@ class SalesFigures extends Controller
             }
         }
 
-        $invoices = $invoices->get()
-        ;
+        $invoices = $invoices->get();
 
 
 

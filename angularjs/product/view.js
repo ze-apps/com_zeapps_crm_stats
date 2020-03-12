@@ -208,6 +208,8 @@ app.controller("ComZeappsStatsProductstatsCtrl", ["$scope", "$route", "$routePar
                     }
 
 
+                    $scope.grandTotalN = response.data.grandTotalN;
+                    $scope.grandTotalN1 = response.data.grandTotalN1;
                     $scope.categories = response.data.categories;
                     $scope.labelCategories = [];
                     $scope.dataCategories = [[],[]];

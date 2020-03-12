@@ -98,13 +98,18 @@ class Product_stats extends Controller
         }
 
 
+        $grandTotalN = 0;
+        $grandTotalN1 = 0;
 
 
 
         if ($categories = ProductCategories::where('id_parent', $id_parent)->get()) {
             foreach ($categories as $cat) {
                 $ids = ProductCategories::getSubCatIds_r($cat->id);
+
                 $filters['id_cat'] = $ids;
+
+
                 $total_ht = [] ;
                 $total_ht[0] = 0;
                 $total_ht[1] = 0;
@@ -180,6 +185,9 @@ class Product_stats extends Controller
                     }
                 }
 
+                $grandTotalN += $total_ht[0] ;
+                $grandTotalN1 += $total_ht[1] ;
+
 
                 $cat->total_ht = $total_ht ;
                 $cat->qty = $qty ;
@@ -196,14 +204,109 @@ class Product_stats extends Controller
 
 
 
-        $products = [];
-//        if (!$products[0] = Products::top10($dateDebut, $dateFin, $filters)) {
-//            $products[0] = [];
-//        }
-//        if (!$products[1] = Products::top10($dateDebut_n_1, $dateFin_n_1, $filters)) {
-//            $products[1] = [];
-//        }
+        // pour trouver les produits sans catégorie
+        if ($id_parent == 0) {
+            $total_ht = [] ;
+            $total_ht[0] = 0;
+            $total_ht[1] = 0;
 
+            $qty = [] ;
+            $qty[0] = 0;
+            $qty[1] = 0;
+
+            $filters['id_cat'] = [];
+            $filters['id_product'] = 0;
+
+            $categoriesAutres = new ProductCategories();
+            $categoriesAutres->id = 99999999999999;
+            $categoriesAutres->id_parent = 0;
+            $categoriesAutres->name = "Produits sans categorie";
+
+
+
+
+            $traitementPossible = true ;
+            if ($dateDebut && \DateTime::createFromFormat('Y-m-d', $dateDebut) === FALSE) {
+                $traitementPossible = false ;
+            } else {
+                $date_dateDebut = strtotime($dateDebut);
+                if (date("Y", $date_dateDebut) < 1900) {
+                    $traitementPossible = false ;
+                }
+            }
+
+            if ($dateFin && \DateTime::createFromFormat('Y-m-d', $dateFin) === FALSE) {
+                $traitementPossible = false ;
+            } else {
+                $date_dateFin = strtotime($dateFin);
+                if (date("Y", $date_dateFin) < 1900) {
+                    $traitementPossible = false ;
+                }
+            }
+
+            if (!$dateDebut && !$dateFin) {
+                $traitementPossible = false ;
+            }
+
+            if ($traitementPossible) {
+                if ($autresProduits = Products::top10Autre($dateDebut, $dateFin, $filters, 0, false)) {
+                    foreach ($autresProduits as $autreProduit) {
+                        $total_ht[0] += floatval($autreProduit->total_ht);
+                        $qty[0] += floatval($autreProduit->qty);
+                    }
+                }
+            }
+
+
+
+
+
+
+            $traitementPossible = true ;
+            if ($dateDebut_n_1 && \DateTime::createFromFormat('Y-m-d', $dateDebut_n_1) === FALSE) {
+                $traitementPossible = false ;
+            } else {
+                $date_dateDebut = strtotime($dateDebut_n_1);
+                if (date("Y", $date_dateDebut) < 1900) {
+                    $traitementPossible = false ;
+                }
+            }
+
+            if ($dateFin_n_1 && \DateTime::createFromFormat('Y-m-d', $dateFin_n_1) === FALSE) {
+                $traitementPossible = false ;
+            } else {
+                $date_dateFin = strtotime($dateFin_n_1);
+                if (date("Y", $date_dateFin) < 1900) {
+                    $traitementPossible = false ;
+                }
+            }
+
+            if (!$dateDebut_n_1 && !$dateFin_n_1) {
+                $traitementPossible = false ;
+            }
+
+            if ($traitementPossible) {
+                if ($autresProduits = Products::top10Autre($dateDebut_n_1, $dateFin_n_1, $filters, 0, false)) {
+                    foreach ($autresProduits as $autreProduit) {
+                        $total_ht[1] += floatval($autreProduit->total_ht);
+                        $qty[1] += floatval($autreProduit->qty);
+                    }
+                }
+            }
+
+            $grandTotalN += $total_ht[0] ;
+            $grandTotalN1 += $total_ht[1] ;
+
+
+            $categoriesAutres->total_ht = $total_ht;
+            $categoriesAutres->qty = $qty;
+
+            $categories[] = $categoriesAutres;
+        }
+
+
+
+        $products = [];
 
 
 
@@ -236,7 +339,9 @@ class Product_stats extends Controller
             'infoSerie' => $serie_label,
             'infoSerie_n_1' => $serie_label_n_1,
             "categories" => $categories,
-            "products" => $products
+            "products" => $products,
+            "grandTotalN"=>$grandTotalN,
+            "grandTotalN1"=>$grandTotalN1,
         ));
     }
 }

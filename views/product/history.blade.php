@@ -34,6 +34,14 @@
                         <td class="text-right"><span ng-if="dataCategoriesQty[0][$index]">@{{dataCategoriesQty[0][$index] | currency:'':2}}</span></td>
                         <td class="text-right"><span ng-if="dataCategories[0][$index]">@{{(dataCategories[0][$index] / dataCategoriesQty[0][$index]) | currency:'':2}}</span></td>
                     </tr>
+
+                    <tr>
+                        <td>Total</td>
+                        <td class="text-right"><span ng-if="grandTotalN">@{{ grandTotalN | currency:'€':2}}</span></td>
+                        <td class="text-right"></td>
+                        <td class="text-right"></td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>

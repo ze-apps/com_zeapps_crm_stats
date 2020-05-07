@@ -115,6 +115,7 @@ app.controller("ComZeappsStatsProductstatsCtrl", ["$scope", "$route", "$routePar
         zhttp.crm.price_list.get_all().then(function (response) {
             if (response.data && response.data != "false") {
                 $scope.filters.secondaries[1].options = response.data ;
+                $scope.filters.secondaries[1].options.push({id:999999, label:"Toutes les boutiques"});
             }
         });
 

@@ -11,6 +11,10 @@ app.config(["$provide",
                 turnover: {
                     get: get_turnover
                 },
+                customer: {
+                    get: get_customer,
+                    export: export_customer
+                },
                 flowing_horizon: {
                     get: get_flowing_horizon,
                     export: export_flowing_horizon
@@ -74,6 +78,16 @@ app.config(["$provide",
                 return zeHttp.post("/com_zeapps_crm_stats/sales-figures/get", filters);
             }
 
+            // CUSTOMER
+            function get_customer(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/customer/get", filters);
+            }
+
+            function export_customer(filters) {
+                return zeHttp.post("/com_zeapps_crm_stats/customer/export", filters);
+            }
+
+
             // TURNOVER
             function get_flowing_horizon(filters) {
                 return zeHttp.post("/com_zeapps_crm_stats/flowing-horizon/get", filters);
@@ -82,6 +96,8 @@ app.config(["$provide",
             function export_flowing_horizon(filters) {
                 return zeHttp.post("/com_zeapps_crm_stats/flowing-horizon/export", filters);
             }
+
+
 
 
 

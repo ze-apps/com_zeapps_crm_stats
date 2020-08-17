@@ -1,6 +1,11 @@
 <?php
 use Zeapps\Core\Routeur ;
 
+Routeur::get("/com_zeapps_crm_stats/customer/", 'App\\com_zeapps_crm_stats\\Controllers\\Customer@index');
+Routeur::get("/com_zeapps_crm_stats/customer/history", 'App\\com_zeapps_crm_stats\\Controllers\\Customer@history');
+Routeur::post("/com_zeapps_crm_stats/customer/get", 'App\\com_zeapps_crm_stats\\Controllers\\Customer@get');
+Routeur::post("/com_zeapps_crm_stats/customer/export", 'App\\com_zeapps_crm_stats\\Controllers\\Customer@getExcel');
+
 
 
 Routeur::get("/com_zeapps_crm_stats/sales-figures/", 'App\\com_zeapps_crm_stats\\Controllers\\SalesFigures@index');

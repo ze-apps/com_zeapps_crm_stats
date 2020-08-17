@@ -80,6 +80,16 @@ $tabMenu["order"] = 14 ;
 $menuLeft[] = $tabMenu ;
 
 
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_customer" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Clients" ;
+$tabMenu["fa-icon"] = "chart-pie" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/customer" ;
+$tabMenu["order"] = 50 ;
+$menuLeft[] = $tabMenu ;
+
+
 
 /*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_markets" ;
@@ -197,6 +207,18 @@ $tabMenu["label"] = "Abonnements" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/abonnement" ;
 $tabMenu["order"] = 14 ;
 $menuHeader[] = $tabMenu ;
+
+
+
+$tabMenu = array () ;
+$tabMenu["id"] = "com_quiltmania_stats_customer" ;
+$tabMenu["space"] = "com_zeapps_statistics" ;
+$tabMenu["label"] = "Clients" ;
+$tabMenu["url"] = "/ng/com_zeapps_crm_stats/customer" ;
+$tabMenu["order"] = 50 ;
+$menuHeader[] = $tabMenu ;
+
+
 
 /*$tabMenu = array () ;
 $tabMenu["id"] = "com_quiltmania_stats_markets" ;

@@ -16,6 +16,11 @@ app.config(["$routeProvider",
                 controller: "ComZeappsStatsSalesFiguresCtrl"
             })
 
+            .when("/ng/com_zeapps_crm_stats/customer", {
+                templateUrl: "/com_zeapps_crm_stats/customer/",
+                controller: "ComZeappsStatsCustomerCtrl"
+            })
+
             .when("/ng/com_zeapps_crm_stats/flowing-horizon", {
                 templateUrl: "/com_zeapps_crm_stats/flowing-horizon",
                 controller: "ComZeappsStatsFlowingHorizonCtrl"

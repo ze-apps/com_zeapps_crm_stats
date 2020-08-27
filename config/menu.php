@@ -22,6 +22,7 @@ $tabMenu["label"] = "Hebdomadaire" ;
 $tabMenu["fa-icon"] = "tags" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/weekly" ;
 $tabMenu["order"] = 9 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -33,6 +34,7 @@ $tabMenu["label"] = "Chiffre d'affaires" ;
 $tabMenu["fa-icon"] = "chart-pie" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -44,6 +46,7 @@ $tabMenu["label"] = "Horizon glissant" ;
 $tabMenu["fa-icon"] = "chart-pie" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/flowing-horizon" ;
 $tabMenu["order"] = 11 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -57,6 +60,7 @@ $tabMenu["label"] = "Ventes par catégorie" ;
 $tabMenu["fa-icon"] = "tags" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products" ;
 $tabMenu["order"] = 12 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -67,6 +71,7 @@ $tabMenu["label"] = "Produits détails" ;
 $tabMenu["fa-icon"] = "tags" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products_details" ;
 $tabMenu["order"] = 13 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -77,6 +82,7 @@ $tabMenu["label"] = "Abonnements" ;
 $tabMenu["fa-icon"] = "tags" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/abonnement" ;
 $tabMenu["order"] = 14 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -87,6 +93,7 @@ $tabMenu["label"] = "Clients" ;
 $tabMenu["fa-icon"] = "chart-pie" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/customer" ;
 $tabMenu["order"] = 50 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuLeft[] = $tabMenu ;
 
 
@@ -163,6 +170,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Hebdomadaire" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/weekly" ;
 $tabMenu["order"] = 9 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 
@@ -172,6 +180,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Chiffre d'affaires" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/sales-figures" ;
 $tabMenu["order"] = 10 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 
@@ -182,6 +191,7 @@ $tabMenu["label"] = "Horizon glissant" ;
 $tabMenu["fa-icon"] = "chart-pie" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/flowing-horizon" ;
 $tabMenu["order"] = 11 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 $tabMenu = array () ;
@@ -190,6 +200,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Ventes par catégorie" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products" ;
 $tabMenu["order"] = 12 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 $tabMenu = array () ;
@@ -198,6 +209,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Produits détails" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/products_details" ;
 $tabMenu["order"] = 13 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 $tabMenu = array () ;
@@ -206,6 +218,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Abonnements" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/abonnement" ;
 $tabMenu["order"] = 14 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 
@@ -216,6 +229,7 @@ $tabMenu["space"] = "com_zeapps_statistics" ;
 $tabMenu["label"] = "Clients" ;
 $tabMenu["url"] = "/ng/com_zeapps_crm_stats/customer" ;
 $tabMenu["order"] = 50 ;
+$tabMenu["access"] = "com_zeapps_crm_stats_read" ;
 $menuHeader[] = $tabMenu ;
 
 

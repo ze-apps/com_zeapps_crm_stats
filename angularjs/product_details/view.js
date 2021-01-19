@@ -50,14 +50,14 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
                 },
                 {
                     format: 'select',
-                    field: 'delivery_country_id IN',
+                    field: 'billing_country_id IN',
                     type: 'text',
                     label: 'Marché clé',
                     options: []
                 },
                 {
                     format: 'select',
-                    field: 'delivery_country_id',
+                    field: 'billing_country_id',
                     type: 'text',
                     label: 'Pays',
                     options: []

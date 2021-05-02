@@ -30,14 +30,14 @@
                     <tbody>
                     <tr ng-repeat="label in labelCategories track by $index">
                         <td>@{{ label }}</td>
-                        <td class="text-right"><span ng-if="dataCategories[0][$index]">@{{dataCategories[0][$index] | currency:'€':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataCategoriesQty[0][$index]">@{{dataCategoriesQty[0][$index] | currency:'':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataCategories[0][$index]">@{{(dataCategories[0][$index] / dataCategoriesQty[0][$index]) | currency:'':2}}</span></td>
+                        <td class="text-right"><span ng-if="dataCategories[0][$index]">@{{dataCategories[0][$index] | currencyConvert }}</span></td>
+                        <td class="text-right"><span ng-if="dataCategoriesQty[0][$index]">@{{dataCategoriesQty[0][$index] | currencyConvert }}</span></td>
+                        <td class="text-right"><span ng-if="dataCategories[0][$index]">@{{(dataCategories[0][$index] / dataCategoriesQty[0][$index]) | currencyConvert }}</span></td>
                     </tr>
 
                     <tr>
                         <td>Total</td>
-                        <td class="text-right"><span ng-if="grandTotalN">@{{ grandTotalN | currency:'€':2}}</span></td>
+                        <td class="text-right"><span ng-if="grandTotalN">@{{ grandTotalN | currencyConvert }}</span></td>
                         <td class="text-right"></td>
                         <td class="text-right"></td>
                     </tr>
@@ -58,9 +58,9 @@
 {{--                    <tbody>--}}
 {{--                    <tr ng-repeat="label in labelProducts[0] track by $index">--}}
 {{--                        <td>@{{ label }}</td>--}}
-{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{dataProducts[0][$index] | currency:'€':2}}</span></td>--}}
+{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{dataProducts[0][$index] | currencyConvert}}</span></td>--}}
 {{--                        <td class="text-right"><span ng-if="dataProductsQty[0][$index]">@{{dataProductsQty[0][$index] | currency:'':2}}</span></td>--}}
-{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{(dataProducts[0][$index] / dataProductsQty[0][$index]) | currency:'€':2}}</span></td>--}}
+{{--                        <td class="text-right"><span ng-if="dataProducts[0][$index]">@{{(dataProducts[0][$index] / dataProductsQty[0][$index]) | currencyConvert}}</span></td>--}}
 {{--                    </tr>--}}
 {{--                    </tbody>--}}
 {{--                </table>--}}
@@ -90,9 +90,9 @@
                     <tbody>
                     <tr ng-repeat="label in labelCategories track by $index">
                         <td>@{{ label }}</td>
-                        <td class="text-right"><span ng-if="dataCategories[1][$index]">@{{dataCategories[1][$index] | currency:'€':2}}</span></td>
+                        <td class="text-right"><span ng-if="dataCategories[1][$index]">@{{dataCategories[1][$index] | currencyConvert}}</span></td>
                         <td class="text-right"><span ng-if="dataCategoriesQty[1][$index]">@{{dataCategoriesQty[1][$index] | currency:'':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataCategories[1][$index]">@{{(dataCategories[1][$index] / dataCategoriesQty[1][$index]) | currency:'€':2}}</span></td>
+                        <td class="text-right"><span ng-if="dataCategories[1][$index]">@{{(dataCategories[1][$index] / dataCategoriesQty[1][$index]) | currencyConvert}}</span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -110,9 +110,9 @@
                     <tbody>
                     <tr ng-repeat="label in labelProducts[1] track by $index">
                         <td>@{{ label }}</td>
-                        <td class="text-right"><span ng-if="dataProducts[1][$index]">@{{dataProducts[1][$index] | currency:'€':2}}</span></td>
+                        <td class="text-right"><span ng-if="dataProducts[1][$index]">@{{dataProducts[1][$index] | currencyConvert}}</span></td>
                         <td class="text-right"><span ng-if="dataProductsQty[1][$index]">@{{dataProductsQty[1][$index] | currency:'':2}}</span></td>
-                        <td class="text-right"><span ng-if="dataProducts[1][$index]">@{{(dataProducts[1][$index] / dataProductsQty[1][$index]) | currency:'€':2}}</span></td>
+                        <td class="text-right"><span ng-if="dataProducts[1][$index]">@{{(dataProducts[1][$index] / dataProductsQty[1][$index]) | currencyConvert}}</span></td>
                     </tr>
                     </tbody>
                 </table>

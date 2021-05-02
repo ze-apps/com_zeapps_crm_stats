@@ -17,7 +17,7 @@
             <tbody>
             <tr ng-repeat="month in labels">
                 <td>@{{month}}</td>
-                <td class="text-right">@{{data[0][$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{data[0][$index] | currencyConvert}}</td>
             </tr>
             </tbody>
         </table>

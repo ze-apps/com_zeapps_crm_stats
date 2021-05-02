@@ -39,7 +39,7 @@
                     <td>@{{ distributeur_vente.name_publication  + ' n°' + distributeur_vente.num_publication }}</td>
                     <td>@{{ distributeur_vente.name_distributeur }}</td>
                     <td>@{{ distributeur_vente.name_country }}</td>
-                    <td>@{{ distributeur_vente.date | date:'dd/MM/yyyy' }}</td>
+                    <td>@{{ distributeur_vente.date | dateConvert:'date' }}</td>
                     <td class="text-right">@{{ distributeur_vente.total | number:2 }}</td>
                     <td class="text-right">@{{ distributeur_vente.sold | number:2 }}</td>
                     <td class="text-right">@{{ distributeur_vente.total - distributeur_vente.sold | number:2 }}</td>

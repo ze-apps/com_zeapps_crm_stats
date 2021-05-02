@@ -20,9 +20,9 @@
             <tbody>
             <tr ng-repeat="period in labels">
                 <td>@{{period}}</td>
-                <td class="text-right">@{{data[0][$index] | currency:'€':2}}</td>
-                <!--<td class="text-right">@{{data[1][$index] | currency:'€':2}}</td>
-                <td class="text-right">@{{(data[0][$index] - data[1][$index]) | currency:'€':2}}</td>
+                <td class="text-right">@{{data[0][$index] | currencyConvert}}</td>
+                <!--<td class="text-right">@{{data[1][$index] | currencyConvert}}</td>
+                <td class="text-right">@{{(data[0][$index] - data[1][$index]) | currencyConvert}}</td>
                 <td class="text-right">
                     <i class="fa fa-fw" ng-class="hasImproved(data[0][$index], data[1][$index])"></i>
                 </td>-->

@@ -19,8 +19,8 @@
             <tbody>
             <tr ng-repeat="month in labels_total">
                 <td>@{{month}}</td>
-                <td class="text-right">@{{total[0][$index] | currency:'€':2}}</td>
-                <td class="text-right">@{{total[1][$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{total[0][$index] | currencyConvert }}</td>
+                <td class="text-right">@{{total[1][$index] | currencyConvert }}</td>
                 <td class="text-right">
                     <i class="fa fa-fw" ng-class="hasImproved(total[0][$index], total[1][$index])"></i>
                 </td>
@@ -43,7 +43,7 @@
             <tbody>
             <tr ng-repeat="canal in labels_canaux">
                 <td>@{{canal}}</td>
-                <td class="text-right">@{{data_canaux.en_cours[$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{data_canaux.en_cours[$index] | currencyConvert}}</td>
             </tr>
             </tbody>
         </table>
@@ -61,7 +61,7 @@
             <tbody>
             <tr ng-repeat="canal in labels_canaux">
                 <td>@{{canal}}</td>
-                <td class="text-right">@{{data_canaux.old[$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{data_canaux.old[$index] | currencyConvert }}</td>
             </tr>
             </tbody>
         </table>

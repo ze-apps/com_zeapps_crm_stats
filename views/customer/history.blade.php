@@ -17,7 +17,7 @@
             <tbody>
             <tr ng-repeat="period in labels">
                 <td>@{{period}}</td>
-                <td class="text-right">@{{data[0][$index] | currency:'€':2}}</td>
+                <td class="text-right">@{{data[0][$index] | currencyConvert }}</td>
             </tr>
             </tbody>
         </table>

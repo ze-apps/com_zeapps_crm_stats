@@ -59,13 +59,13 @@
                                     <td class="text-center" ng-show="affiche_categorie_n_1"><i class="fas fa-sort-up text-success" ng-if="product.caEvolution == 1"></i><i class="fas fa-sort-down text-danger" ng-if="product.caEvolution == -1"></i></td>
                                     <td class="text-center" ng-show="affiche_categorie_n_1"><i class="fas fa-sort-up text-success" ng-if="product.qteEvolution == 1"></i><i class="fas fa-sort-down text-danger" ng-if="product.qteEvolution == -1"></i></td>
 
-                                    <td class="text-right"><span ng-if="product.caN">@{{product.caN | currency:'€':2}}</span></td>
+                                    <td class="text-right"><span ng-if="product.caN">@{{product.caN | currencyConvert }}</span></td>
                                     <td class="text-right"><span ng-if="product.qteN">@{{product.qteN | currency:'':0}}</span></td>
-                                    <td class="text-right"><span ng-if="product.caParUniteN">@{{product.caParUniteN | currency:'€':2}}</span></td>
+                                    <td class="text-right"><span ng-if="product.caParUniteN">@{{product.caParUniteN | currencyConvert }}</span></td>
 
-                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.caNmoins1">@{{product.caNmoins1 | currency:'€':2}}</span></td>
+                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.caNmoins1">@{{product.caNmoins1 | currencyConvert }}</span></td>
                                     <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.qteNmoins1">@{{product.qteNmoins1 | currency:'':0}}</span></td>
-                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.caParUniteNmoins1">@{{product.caParUniteNmoins1 | currency:'€':2}}</span></td>
+                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.caParUniteNmoins1">@{{product.caParUniteNmoins1 | currencyConvert }}</span></td>
                                 </tr>
                                 </tbody>
                             </table>

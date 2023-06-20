@@ -231,7 +231,7 @@ app.controller("ComZeappsStatsAbonnementCtrl", ["$scope", "$route", "$routeParam
                 }
             }
 
-            zhttp.quiltmania_stats.product_details.export($scope.category.id, context, formatted_filters).then(function(response){
+            zhttp.quiltmania_stats.abonnement_info.export($scope.category.id, context, formatted_filters).then(function(response){
                 if (response.data && response.data != "false") {
                     window.document.location.href = '/download-storage/' + angular.fromJson(response.data);
                 }

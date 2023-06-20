@@ -26,7 +26,8 @@ app.config(["$provide",
                     get: get_abonnement
                 },
                 abonnement_info: {
-                    get: get_abonnement_info
+                    get: get_abonnement_info,
+                    export: export_abonnement_info
                 },
                 medium: {
                     get: get_medium
@@ -128,6 +129,10 @@ app.config(["$provide",
                 return zeHttp.post("/com_quiltmania_stats/abonnement/get/" + id_parent + "/" + context, filters);
             }
 
+            function export_abonnement_info(id_parent, context, filters) {
+                return zeHttp.post("/com_quiltmania_stats/abonnement/export/" + id_parent + "/" + context, filters);
+            }
+
 
             // PRODUCT DETAILS
             function get_product_details(id_parent, context, filters) {
@@ -137,6 +142,10 @@ app.config(["$provide",
             function export_product_details(id_parent, context, filters) {
                 return zeHttp.post("/com_quiltmania_stats/product_stats_details/export/" + id_parent + "/" + context, filters);
             }
+
+            
+
+            
 
 
 

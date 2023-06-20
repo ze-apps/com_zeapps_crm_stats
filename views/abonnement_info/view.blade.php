@@ -1,10 +1,20 @@
-<div id="breadcrumb">Produits détails</div>
+<div id="breadcrumb">Abonnements</div>
 <div id="content">
     <div class="row">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
                     <ze-filters class="pull-right" data-model="filter_model" data-filters="filters" data-update="loadList"></ze-filters>
+                </div>
+            </div>
+
+            <div class="row" ng-show="products.length">
+                <div class="col-md-12">
+                    <h3>
+                        <button type="button" class="btn btn-xs btn-success pull-right" ng-click="export_excel()">
+                            <i class="fa fa-fw fa-download"></i> Export Excel
+                        </button>
+                    </h3>
                 </div>
             </div>
 

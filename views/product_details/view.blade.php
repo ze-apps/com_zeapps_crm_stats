@@ -67,13 +67,26 @@
                                     <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.qteNmoins1">@{{product.qteNmoins1 | currency:'':0}}</span></td>
                                     <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="product.caParUniteNmoins1">@{{product.caParUniteNmoins1 | currencyConvert }}</span></td>
                                 </tr>
+                                <tr ng-show="products.length">
+                                    <td colspan="2" class="text-right">Total</td>
+
+                                    <td class="text-center" ng-show="affiche_categorie_n_1"></td>
+                                    <td class="text-center" ng-show="affiche_categorie_n_1"></td>
+
+                                    <td class="text-right"><span ng-if="total.totalCaN">@{{ total.totalCaN | currencyConvert }}</span></td>
+                                    <td class="text-right"><span ng-if="total.totalQteN">@{{ total.totalQteN | currency:'':0}}</span></td>
+                                    <td class="text-right"></td>
+
+                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="total.totalCaNmoins1">@{{ total.totalCaNmoins1 | currencyConvert }}</span></td>
+                                    <td class="text-right" ng-show="affiche_categorie_n_1"><span ng-if="total.totalQteNmoins1">@{{ total.totalQteNmoins1 | currency:'':0}}</span></td>
+                                    <td class="text-right" ng-show="affiche_categorie_n_1"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

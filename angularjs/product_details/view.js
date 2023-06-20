@@ -215,6 +215,30 @@ app.controller("ComZeappsStatsProductstatsDetailsCtrl", ["$scope", "$route", "$r
                     }
 
                     $scope.products = response.data.products;
+
+
+
+                    let totalCaN = 0;
+                    let totalQteN = 0;
+                    let totalCaNmoins1 = 0;
+                    let totalQteNmoins1 = 0;
+
+                    response.data.products.forEach(function (product) {
+                        totalCaN += parseFloat(product.caN);
+                        totalQteN += parseFloat(product.qteN);
+                        
+                        if ($scope.affiche_categorie_n_1) {
+                            totalCaNmoins1 += parseFloat(product.caNmoins1);
+                            totalQteNmoins1 += parseFloat(product.qteNmoins1);
+                        }
+                    });
+
+                    $scope.total = {
+                        totalCaN,
+                        totalQteN,
+                        totalCaNmoins1,
+                        totalQteNmoins1,
+                    }
                 }
 			});
 		}
